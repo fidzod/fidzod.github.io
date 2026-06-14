@@ -3,8 +3,8 @@
 
 I am a self-taught programmer and recently graduated with a degree in
 Philosophy and Religious Studies from the University of Manchester, UK.
-I have always been passionate about computers, and I have been programming
-since I was 10. Since then I have explored a range of domains, and I am
+I have always been passionate about computers, and I started programming
+when I was 10. Since then I have explored a range of domains, and I am
 proficient in Typescript, Odin and Python.
 
 I am currently exploring the *Lambda Calculus* and *Type Theory* in a series of blog
