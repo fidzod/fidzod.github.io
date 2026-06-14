@@ -5,6 +5,7 @@
 
 <style>
   footer {
+    margin-inline: auto;
     max-width: calc(100vw - 2rem);
     text-align: center;
   }
