@@ -22,7 +22,7 @@ translating this project into your language of choice might be a valuable
 experience.*
 
 *The complete source for this project is available via 
-[Github](https://github.com/fidzod).*
+[Github](https://github.com/fidzod/lambda-calculus).*
 
 ## Primitives
 Before we can do anything we need to know the fundamental primitives we are
@@ -80,7 +80,7 @@ standard library, for instance `zero?` and `eq?`.
 
 *The lexer implementation is not particularly interesting, and as such I have
 elected not to provide a listing here, find it in the 
-[repository](https://github.com/fidzod).*
+[repository](https://github.com/fidzod/lambda-calculus/blob/main/lexer.odin).*
 
 ## Parsing
 Lambda calculus has three syntactic forms, but we need to be careful about
