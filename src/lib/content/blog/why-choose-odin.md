@@ -5,9 +5,8 @@ description: "Rust solves real problems, but it doesn't know when to stop. Here 
 ---
 
 A year ago I was in need of a systems programming language having not used one
-for a while, and since I was exploring a lot of new technologies in terms of web
-development at the time, I became interested in choosing a "successor" to C. I
-looked at Rust, Zig, Nim, and Odin. Odin was the one I was least excited about.
+for a while. I considered at C, Rust, Zig, Nim, and Odin. Odin was the one I was
+least excited about.
 
 Odin arguably lacks a compelling elevator pitch. What's exciting about it? It
 doesn't have the magic of Nim, it's not memory safe in the way Rust is, it
@@ -76,21 +75,21 @@ explicit pointer semantics, no implicit conversions doing quiet damage - and it
 has these things because they are useful, not because they complete some
 theoretical picture. When I built a game engine with raylib, the bugs my IDE
 caught were the kind C would have let through silently: wrong union variant,
-mismatched types, null where something was expected. Not because Odin is a
-sophisticated type system, because it is a careful one.
+mismatched types, null where something was expected. Odin doesn't have the most
+sophisticated type system, it has *enough* of a type system.
 
 In C, using raylib means finding it, building it, linking it, managing headers.
-In Odin, it is in the vendor library collection. You import it and it works. This
-is not a small thing. The build system philosophy — `odin build .`, `odin run .`, and
-not much else — is the language's personality made practical. There is no Cargo.
-There is no cmake. There is a directory and a command.
+In Odin, it is in the vendor library collection. You import it and it works.
+The build system philosophy - `odin build .`, `odin run .`, and
+not much else - is the language's personality made practical. There is no Cargo.
+There is no cmake. Just a directory and a command.
 
 This matters because friction is not neutral. Every unnecessary step between you and
 building something is a small argument that the tooling is more important than the work.
 Odin's tooling makes the opposite argument. It is quiet about itself.
 
 There are cases where I wouldn't reach for Odin. I'm not suggesting we rewrite the
-Linux kernel in it. C has its place, and that place is real.
+Linux kernel in it. C still has its place.
 
 
 But for systems work where I am the one setting the terms - a game engine,
