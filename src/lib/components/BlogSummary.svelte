@@ -3,7 +3,7 @@
 
   let { posts, title = "Blog" }: {
     posts: Post[],
-    title: string,
+    title?: string,
   } = $props();
 </script>
 

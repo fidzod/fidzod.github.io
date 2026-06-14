@@ -1,6 +1,7 @@
 <script lang="ts">
   import BlogSummary from '$lib/components/BlogSummary.svelte';
   import ImageMenu from '$lib/components/ImageMenu.svelte';
+    import MobileHeader from '$lib/components/MobileHeader.svelte';
   import Bio from '$lib/content/bio.md';
   import Projects from '$lib/content/projects.md';
   import type { PageData } from './$types';
@@ -14,6 +15,9 @@
   </aside>
   <main>
     <div class="prose">
+      <div class="mobile-only">
+        <MobileHeader />
+      </div>
       <Bio />
       <Projects />
       <BlogSummary posts={data.posts} />
@@ -33,12 +37,22 @@
     margin-block-start: var(--space-lg);
     margin-inline-end: var(--space-lg);
   }
+  .mobile-only {
+    margin-block-end: 4rem;
+    display: none;
+  }
   @media (max-width: 800px) {
     aside {
       display: none;
     }
     main {
-      margin: var(--space-md) var(--space-lg);
+      margin: var(--space-sm) var(--space-lg);
+    }
+    #container {
+      margin-block-start: var(--space-lg);
+    }
+    .mobile-only {
+      display: block;
     }
   }
 </style>
