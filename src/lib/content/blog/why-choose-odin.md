@@ -33,7 +33,7 @@ But I find Rust philosophically confused, and practically unpleasant to write.
 
 The confusion is this: Rust has one foot out the door of systems programming,
 always reaching toward abstraction, never quite deciding what it is for. The
-result is a Frankenstein's monster of a language — features accumulated because
+result is a Frankenstein's monster of a language - features accumulated because
 each seemed like a good idea, none of them forming a coherent whole. The macro
 system, the trait system, the async ecosystem, the three smart pointer types
 you must choose between before you have written anything useful. No individual
@@ -51,7 +51,7 @@ to needing something is to find a crate rather than to understand the problem.
 Rust has this in abundance.
 
 Zig is more interesting, and I have more sympathy for it. It takes the right
-lesson from C — that simplicity is a virtue — and runs with it. Comptime is
+lesson from C - that simplicity is a virtue - and runs with it. Comptime is
 genuinely clever. The explicit allocator model is the right idea. But Zig
 overemphasises testing to the point where it imposes structure on you, and
 its error handling, while principled, produces a kind of noise I find exhausting.
