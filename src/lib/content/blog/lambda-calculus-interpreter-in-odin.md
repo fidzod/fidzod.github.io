@@ -5,15 +5,18 @@ description: "Lambda calculus has three rules, and yet booleans, arithmetic, lin
 ---
 
 I firmly believe that to understand something fully you have to build it from
-scratch. So, I built a lambda calculus interpreter in Odin and a small standard
-library written in lambda calculus itself.
+scratch. I wanted to learn
+[Type Theory](https://en.wikipedia.org/wiki/Type_theory), and lambda calculus
+seemed like the right place to start. So, I built a lambda
+calculus interpreter in Odin and a small standard library written in lambda
+calculus itself.
 
 This is an account of that implementation, because in implementing something
 like this the theory keeps ambushing you - and you meet it in a way that
 makes it real and intuitive. You can't implement substitution without confronting
 variable capture. You can't implement reduction without choosing an evaluation
-order, and that choice has real consequences. Building the thing is how you
-learn the theory.
+order, and that choice has real consequences. In other words, building the
+thing is how you learn the theory.
 
 *My implementation is in Odin, read about why I choose Odin for systems
 programming [here](/blog/why-choose-odin). If you are familiar with C, Zig,
@@ -27,7 +30,7 @@ experience.*
 ## Primitives
 Before we can do anything we need to know the fundamental primitives we are
 dealing with. This representation informs every subsequent step - lexing,
-parsing, substitution, reduction.
+parsing, reduction.
 
 In lambda calculus a term is either a variable, an abstraction, or an
 application - nothing else:
@@ -79,11 +82,12 @@ question mark by convention. It's a convention I like, and you'll see it in the
 standard library, for instance `zero?` and `eq?`.
 
 *The lexer implementation is not particularly interesting, and as such I have
-elected not to provide a listing here, find it in the 
-[repository](https://github.com/fidzod/lambda-calculus/blob/main/lexer.odin).*
+elected not to provide a listing here, access
+[the source](https://github.com/fidzod/lambda-calculus/blob/main/lexer.odin)
+if you are interested.*
 
 ## Parsing
-Lambda calculus has three syntactic forms, but we need to be careful about
+Lambda calculus has only three syntactic forms, but we need to be careful about
 associativity. Informally:
 
 - Application is **left-associative**: `x y z` means `(x y) z`
@@ -107,20 +111,20 @@ atom  ::= <name>
         | ( term )
 ```
 
-The naive way to write application would be `app ::= app atom | atom` -
-left-recursive, which correctly captures left-associativity but immediately
+The naive way to write application would be `app ::= app atom | atom`,
+which correctly captures left-associativity but immediately
 breaks recursive descent: parsing an app requires first parsing an app, forever.
 
 The app' trick rewrites this to be right-recursive. Instead of reaching left,
-we consume one atom and then ask what follows. x y z becomes: atom x, then app'
-sees y, then app' sees z, then app' sees nothing and stops. As we unwind, we
-build (x y) z — left-associative, as intended.
+we consume one atom and then ask what follows. `x y z` becomes: atom `x`, then
+app' sees `y`, then app' sees `z`, then app' sees nothing and stops. As we
+unwind, we build `(x y) z`.
 
 Atom handles parenthesised terms so they override precedence.
 
 Since an abstraction has the form `λx.t`, to parse it we just consume the `λ`,
 get the parameter, consume the `.`, get the body, and return a new `Abs` instance.
-This is straightforward given our helpers, which do the mechanical work:
+This is straightforward given helpers which do the mechanical work:
 `advance` consumes the current token and returns it, `peek` looks at it without
 consuming, and `expect` asserts the next token is of a given type and advances
 past it - it's generic at compile time, so `expect(p, TDot)` is a type-safe
@@ -165,7 +169,7 @@ parse_app :: proc(p: ^Parser) -> (^Term, bool) {
 ```
 
 By the second iteration, lhs is already an App node. Wrapping it again produces
-`App(App(x, y), z)` — the tree leans left, as it should.
+`App(App(x, y), z)` - the tree leans left.
 
 `parse_atom` handles the two base cases. A name becomes a `Var`. An open parenthesis
 triggers a recursive call to `parse_term`, after which we expect the closing
@@ -173,47 +177,46 @@ parenthesis:
 
 ```odin
 parse_atom :: proc(p: ^Parser) -> (^Term, bool) {
-  tok := advance(p)
-  if v, ok := tok.(TName); ok {
-    term := new(Term)
-    term^ = Var{ name = v.value }
-    return term, true
-  }
-  else if _, ok := tok.(TLParen); ok {
-    term, ok : = parse_term(p)
-    if !ok do return nil, false
-    if !expect(p, TRParen) do return nil, false
-    return term, true
-  }
-  else {
-    fmt.eprintln("Unexpected token")
-    return nil, false
-  }
+	tok := advance(p)
+	if v, ok := tok.(TName); ok {
+		term := new(Term)
+		term^ = Var {
+			name = v.value,
+		}
+		return term, true
+	} else if _, ok := tok.(TLParen); ok {
+		term, parse_ok := parse_term(p)
+		if !parse_ok do return nil, false
+		if !expect(p, TRParen) do return nil, false
+		return term, true
+	} else {
+		fmt.eprintln("Unexpected token")
+		return nil, false
+	}
 }
 ```
 
 The parenthesised case is where precedence gets overridden - by recursing to
-parse_term we allow anything inside parentheses, and the result is treated
-as a single atom by the surrounding parse_app. This is how `(\x. x) y`
+`parse_term` we allow anything inside parentheses, and the result is treated
+as a single atom by the surrounding `parse_app`. This is how `(\x. x) y`
 correctly parses the abstraction as the operator rather than letting the dot
 consume `y`.
 
-`parse_term` is the entry point and the simplest procedure of
-the three. It peeks at the current token and dispatches: a lambda means we're
-looking at an abstraction, anything else is assumed to be an application:
+`parse_term` is the entry point and the simplest procedure. It peeks at the
+current token and dispatches: a lambda means we're looking at an abstraction,
+anything else is assumed to be an application:
 
 ```odin
 parse_term :: proc(p: ^Parser) -> (^Term, bool) {
-  _, isTLambda := peek(p).(TLambda)
-  if isTLambda do return parse_abs(p)
-  return parse_app(p)
+	if _, isTLambda := peek(p).(TLambda); isTLambda do return parse_abs(p)
+	return parse_app(p)
 }
 ```
-Four lines. The simplicity here is the payoff for the layered grammar - all
+The simplicity of this proc is the payoff for our layered grammar - all
 the complexity of precedence and associativity has been handled by the time
 we get here. `parse_term` just decides which path to take and steps aside.
 
-To make this concrete, take `(\x. x y)`. After lexing we have:
+To make this concrete, take `(\x. x) y`. After lexing we have:
 ```text
 TLParen, TLambda, TName("x"), TDot, TName("x"), TRParen, TName("y"), TEOF
 ```
@@ -256,10 +259,10 @@ variable is free if it is not bound under a lambda that introduces it, ie.
 in `λx. x y `, `x` is bound and `y` is free.
 
 The naive approach to substitution is to walk the terms and replace every
-occurreence of the target variable with the replacement. Yet, consider
+occurrence of the target variable with the replacement. Yet, consider
 `(λx. λy. x) y` - which applies a function that ignores its second argument
 and returns its first, to a variable `y`. The naive result would be `λy. y`,
-but this is the identity function.
+but this is the identity function - not what we wanted.
 
 What happened is the `y` that we passed in got captured by the inner `λy` during
 substitution. The `y` that was a free variable in our argument became bound by
@@ -316,15 +319,6 @@ variables - so this is always safe. We generate fresh names with a global
 counter, and since user-facing names cannot contain digits, clashes are
 impossible.
 
-A cleaner solution replaces named variables entirely with numeric indices
-indicating how many lambdas deep the binding is - so `λx. x` becomes
-`λ. 0` and `λx. λy. x` becomes ``λ. λ. 1.` These are called de Bruijn indices,
-and they make alpha-equivalence trivial: two terms are alpha-equivalent iff.
-they are identical. For the sake of simplicity, I have left them out of this
-implementation.
-
-If neither of the above applies then we just recurse into the body.
-
 ```odin
 fresh_counter := 0
 
@@ -333,6 +327,15 @@ alpha_convert :: proc(base: string) -> string {
   return fmt.tprintf("%s%d", base, fresh_counter)
 }
 ```
+
+A cleaner solution replaces named variables entirely with numeric indices
+indicating how many lambdas deep the binding is - so `λx. x` becomes
+`λ. 0` and `λx. λy. x` becomes ``λ. λ. 1.` These are called de Bruijn indices,
+and they make alpha-equivalence trivial: two terms are alpha-equivalent iff.
+they are identical. For the sake of simplicity, I have left them out of this
+implementation.
+
+If neither of the above applies then we just recurse into the body.
 
 ```odin
 substitute :: proc(name: string, replacement: ^Term, term: ^Term) -> ^Term {
@@ -408,8 +411,8 @@ Applicative order is what most programming languages do. Arguments are evaluated
 before being passed to a function. This saves on computation. Normal order is
 lazy: it substitutes first and evaluates later. This can mean duplicated
 computations. Haskell uses normal order, which is why it can work with infinite
-data structures. Haskell avoids duplicated computations through something called
-[sharing](https://en.wikipedia.org/wiki/Lazy_evaluation).
+data structures, it avoids duplicated computations through something called
+[sharing](https://en.wikipedia.org/wiki/Sharing_(computer_science)).
 
 Choosing between these two strategies has important consequences. Consider the
 omega combinator:
@@ -438,25 +441,32 @@ This is the content of the *normalisation theorem*: if a term has a normal form,
 normal order reduction will find it. Applicative order will not always find a
 term's normal form even if it has one. This is why we implement normal order.
 
-We need a `reduce_step` proc attempts a single reduction and returns the result
-paired with a boolean - `true` means a reduction fired, `false` means the term
-is already in normal form. This boolean mechanism threads success
-signals up the recursive calls: if nothing happened below, try somewhere else;
-if nothing happened anywhere, we are done reducing.
+To implement β-reduction, we first implement a `reduce_step` proc, which
+attempts a single reduction and returns the result paired with a boolean -
+`true` means a reduction fired, `false` means the term is already in normal
+form. This boolean mechanism threads success signals up the recursive calls:
+if nothing happened below, try somewhere else; if nothing happened anywhere,
+we are done reducing.
 
-There are four cases. If the term is a variable, there is nothing to reduce -
-variables are already in normal form, return false. If the term is an application
+There are four cases:
+- If the term is a variable, there is nothing to reduce -
+variables are already in normal form, return false.
+
+- If the term is an application
 whose operator is an abstraction, we have a redex: fire it immediately via
-substitution and return true. If the term is an application but the operator
+substitution and return true.
+
+- If the term is an application but the operator
 is not an abstraction, we try to reduce the operator first — if that succeeds
 we rebuild the application with the reduced operator and return true; if it
 fails we try the operand instead. This left-to-right priority is what makes
 the strategy normal order: we always reduce the outermost leftmost redex.
-Finally, if the term is an abstraction, we attempt to reduce the body. If
+
+- Finally, if the term is an abstraction, we attempt to reduce the body. If
 the body reduces we wrap it back in the abstraction and return true; otherwise
 return false.
 
-Here's the implementation of the `reduce_step` proc:
+Here's my implementation of the `reduce_step` proc:
 
 ```odin
 reduce_step :: proc(term: ^Term) -> (^Term, bool) {
@@ -586,7 +596,7 @@ let not = \p. p fls tru
 
 This same pattern of encoding behaviour as function selection can be generalised
 to help us think beyond booleans, about numerals. If a boolean is a choice, a
-number is an iteration. The Church numberal `n` is a function that takes `f`
+number is an iteration. The Church numeral `n` is a function that takes `f`
 and `x` and applies `f` to `x` exactly `n` times:
 
 ```text
@@ -606,7 +616,7 @@ let succ = \n. \f. \x. f (n f x)
 ```
 
 `n f x` applies `f` n times. Wrapping it in one more `f` gives n+1. Addition
-follows cleanly: to add `m` and `n`, apply `f`m times starting from `n f x` -
+follows cleanly: to add `m` and `n`, apply `f` m times starting from `n f x` -
 which is `f` applied `n` times to `x`:
 
 ```text
@@ -660,20 +670,20 @@ And subtraction is just iterated decrement - apply `pred` to `a` `b` times:
 let sub = \a. \b. b pred a
 ```
 
-Now we can easily build up conditions like equality, comparison. `is_zero?`
+Now we can easily build up conditions like equality, comparison. `zero?`
 applies the numeral to a function that always returns `fls`, with a base case of
 `true` - if `f` is never applied we get `tru`, otherwise `fls`. Equality and
-comparison are just combinations of `sub` and `is_zero`:
+comparison are just combinations of `sub` and `zero?`:
 
 ```text
 let zero? = \p. p (\x. fls) tru
-let eq?   = \p. \q. and (is_zero (sub p q)) (is_zero (sub q p))
-let lte?  = \p. \q. is_zero (sub p q)
-let gte?  = \p. \q. is_zero (sub q p)
+let eq?   = \p. \q. and (zero? (sub p q)) (zero? (sub q p))
+let lte?  = \p. \q. zero? (sub p q)
+let gte?  = \p. \q. zero? (sub q p)
 ```
 
-Each definition smaller than the last because the previous ones are doing the
-work.
+Each definition is getting smaller than the last because the previous ones are
+doing the work.
 
 ### Lists
 
@@ -684,11 +694,11 @@ sentinel value. We use a pair that identifies itself to represent that sentinel.
 
 ```text
 let nil      = pair tru tru
-let is_nil   = \l. fst l
+let mil?   = \l. fst l
 ```
 
 `nil` is a pair whose first element is `tru`. The second element could be
-anything, because `is_nil` just checks that first element -
+anything, because `mil?` just checks that first element -
 tru means we've reached the end, fls means there's more list. A non-empty list
 node is a pair whose first element is fls, distinguishing it from nil:
 
@@ -742,7 +752,7 @@ To write a recursive function we write a function that takes its own future self
 as an argument:
 
 ```text
-let fact = Y (\go. \n. if (is_zero n) one (mult n (go (dec n))))
+let fact = Y (\go. \n. if (zero? n) one (mult n (go (dec n))))
 ```
 
 `go` is the recursive call. When `fact` needs to recurse it calls `go`, which
@@ -755,7 +765,7 @@ With recursion in hand, higher order functions over lists follow naturally.
 function to each element:
 
 ```text
-let fold = Y (\go. \l. \a. \f. if (is_nil l) a (go (tail l) (f a (head l)) (f)))
+let fold = Y (\go. \l. \a. \f. if (mil? l) a (go (tail l) (f a (head l)) (f)))
 ```
 
 If the list is `nil` return the accumulator. Otherwise apply `f` to the
@@ -777,8 +787,8 @@ another list.
 
 **All of this just falls out.** This is the thing that feels magical about
 lambda calculus and about functional programming more broadly: the right
-primitives generate complexity upward. We defined `fold` once and got an entire
-collection of list operations for free.
+primitives generate complexity upward. Once we had `fold` figured out, we
+got an entire collection of list operations for free.
 
 [McCarthy](https://en.wikipedia.org/wiki/John_McCarthy_(computer_scientist)) saw
 this in 1960. His [original Lisp paper](https://www-formal.stanford.edu/jmc/recursive.pdf)
@@ -811,14 +821,21 @@ let sort = Y (\go. \l.
 let sorted = sort (cons three (cons two (cons five (cons four nil))))
 ```
 
-Nothing we have built prevents nonsense - `three not` or `tru succ` are perfectly
-valid terms, and the interpreter will attempt to reduce them without complaint.
-Adding a type system changes that: terms have to make sense before they are allowed
-to run. But types turn out to be more than a safety check. Every well-typed term
-in the simply typed lambda calculus corresponds to a proof in propositional logic.
-A function type `A → B` is an implication. A term inhabiting that type is a proof
-that the implication holds. Type checking is proof verification. This correspondence -
-propositions as types, proofs as programs - is called the Curry-Howard
-correspondence. The lambda cube maps out the space of type systems it generates.
-That is where we are going, in what I hope will be a short series of posts.
-Next up: an implementation of the STLC.
+We have built a universal computer, and yet it has a limitation. Nothing that we
+have built prevents nonsense - nothing stops you passing an abstraction to a
+function that expects a variable, and vice versa, likewise nothing stops you
+from writing `three not` or `tru succ`. These are perfectly valid terms and the
+interpreter will attempt to reduce them without complaint. Adding a type system
+changes that: terms have to make sense before they can be evaluated. It turns
+out this limits what we can compute, but we also discover an interesting
+property: types turn out to be more than a safety check. Every well-typed term
+in the simply typed lambda calculus corresponds to a proof in propositional
+logic! A function type 'A -> B' is an implication. A term inhabiting that type
+is a proof that the implication holds. Type checking *is* proof verificiation.
+This correspondence - propositions as types, proofs as programs - is called the
+[Curry-Howard
+correspondence](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence).
+
+That is where we are going next, in the second part of what I hope will be a
+short series of posts, where we implement the STLC and discuss Curry-Howard
+correspondence in more detail.

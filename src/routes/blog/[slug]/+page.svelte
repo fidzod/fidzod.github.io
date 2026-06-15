@@ -43,4 +43,10 @@
       list-style: disc;
     }
   }
+  :global(article ol) {
+    padding-inline-start: var(--space-lg);
+    :global(li) {
+      list-style: decimal;
+    }
+  }
 </style>
