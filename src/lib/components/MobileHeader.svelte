@@ -9,6 +9,7 @@
     <li><a href="/">Home</a></li>
     <li><a href="/blog">Blog</a></li>
     <li><a href="https://github.com/fidzod">Github</a></li>
+    <li><a href="mailto:mail@tobyjordan.com">Contact</a></li>
   </ul>
 </nav>
 

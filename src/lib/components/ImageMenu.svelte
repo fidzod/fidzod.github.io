@@ -6,7 +6,7 @@
   <ul>
     <li data-link="home"><a href="/">Home</a></li>
     <li data-link="github"><a href="https://github.com/fidzod">Github</a></li>
-    <li data-link="lemuria"><a href="https://github.com/fidzod/lemuria">Lemuria</a></li>
+    <li data-link="contact"><a href="mailto:mail@tobyjordan.com">Contact</a></li>
     <li data-link="blog"><a href="/blog">Blog</a></li>
     <li data-link="dotfiles"><a href="https://github.com/fidzod/kaworu-linux">Dotfiles</a></li>
   </ul> 
@@ -34,7 +34,7 @@
   }
   li[data-link="home"]     { top: 70px; left: 50px; }
   li[data-link="github"]   { top: 120px; left: 210px; }
-  li[data-link="lemuria"]  { top: 210px; left: 230px; }
+  li[data-link="contact"]  { top: 210px; left: 230px; }
   li[data-link="blog"]     { top: 170px; left: 20px; }
   li[data-link="dotfiles"] { top: 300px; left: 200px; }
 </style>
