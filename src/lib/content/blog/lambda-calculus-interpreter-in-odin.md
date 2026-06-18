@@ -836,6 +836,7 @@ This correspondence - propositions as types, proofs as programs - is called the
 [Curry-Howard
 correspondence](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence).
 
-That is where we are going next, in the second part of what I hope will be a
-short series of posts, where we implement the STLC and discuss Curry-Howard
+That is where we are going next, in [part
+two](/blog/typed-lambda-calculus-curry-howard) of what I hope will be a
+short series of posts, where we implement the STLC and discuss the Curry-Howard
 correspondence in more detail.
