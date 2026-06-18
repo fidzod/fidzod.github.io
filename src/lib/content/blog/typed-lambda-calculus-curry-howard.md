@@ -21,9 +21,9 @@ coincidental.
 The untyped interpreter we built in [part
 one](/blog/lambda-calculus-interpreter-in-odin) will happily reduce `succ true`
 or `dec and` without complaint, yet these terms are nonsense: `succ` expects a
-number, and so does `dec`, not a boolean or a function over booleans. But, the
-evaluator has no way to know what it is looking at. All the evaluator does is
-substitute and reduce until it gets stuck or runs out of steps.
+number not a boolean, and `dec` likewise expects a number, not a function over
+booleans. But, the evaluator has no way to know what it is looking at. All the
+evaluator does is substitute and reduce until it gets stuck or runs out of steps.
 
 We can change that by introducing a type system. Terms have to make sense before
 they get evaluated. So the typechecker sits in between the parser and the
@@ -40,14 +40,14 @@ The question is: what does it mean for a term to *make sense*?
 STLC answers this with three inference rules:
 
 ```text
-Γ, x:A ⊢ x : A                               (Var)
+Γ, x:A ⊢ x : A                   (Var)
 
 Γ, x:A ⊢ t : B
-─────────────────────────────                (Abs)
+─────────────────────────────    (Abs)
 Γ ⊢ λx:A. t : A→B
 
 Γ ⊢ t₁ : A→B    Γ ⊢ t₂ : A
-─────────────────────────────                (App)
+─────────────────────────────    (App)
 Γ ⊢ t₁ t₂ : B
 ```
 
@@ -80,22 +80,22 @@ Bool`.
 Types are their own AST. A type is either a base type - an atomic label like
 `Nat` or `Bool` - or an arrow type `A->B`. STLC is parametric in its base types;
 the theory does not care how many you have or what you call them. `Nat` is just
-a name. What matters is that the typechecker can tell them apart and refuse to
+a name. What matters is that the typechecker can tell them apart and refuses to
 mix them up.
 
 ```odin
 Type :: union {
-	TypeBase,
-	TypeArrow,
+  TypeBase,
+  TypeArrow,
 }
 
 TypeBase :: struct {
-	name: string,
+  name: string,
 }
 
 TypeArrow :: struct {
-	domain:   ^Type,
-	codomain: ^Type,
+  domain:   ^Type,
+  codomain: ^Type,
 }
 ```
 
@@ -106,30 +106,30 @@ parameter name and the dot.
 
 Parsing types is its own small recursive descent. A type is either a base name
 or a parenthesised type, optionally followed by `->` and another type. The
-recursion hadles arrow types correctly, and right-associativity - `A->B->C`
+recursion handles arrow types correctly, and right-associativity - `A->B->C`
 means `A->(B->C)` - falls out for free, the same way left-associativity fell out
 of `parse_app`.
 
 ```odin
 parse_type :: proc(p: ^Parser) -> (^Type, bool) {
-    domain: ^Type; ok1: bool
+  domain: ^Type; ok1: bool
 
-    if _, is_lparen := peek(p).(TLParen); is_lparen {
-        advance(p)
-        domain, ok1 = parse_type(p)
-        if !ok1 do return nil, false
-        if !expect(p, TRParen) do return nil, false
-    } else {
-        name, is_name := peek(p).(TName)
-        if !is_name do return nil, false
-        advance(p)
-        domain = base(name.value)
-    }
-
-    if _, is_arrow := peek(p).(TArrow); !is_arrow do return domain, true
+  if _, is_lparen := peek(p).(TLParen); is_lparen {
     advance(p)
-    if codomain, ok := parse_type(p); ok do return arrow(domain, codomain), true
-    return nil, false
+    domain, ok1 = parse_type(p)
+    if !ok1 do return nil, false
+    if !expect(p, TRParen) do return nil, false
+  } else {
+    name, is_name := peek(p).(TName)
+    if !is_name do return nil, false
+    advance(p)
+    domain = base(name.value)
+  }
+
+  if _, is_arrow := peek(p).(TArrow); !is_arrow do return domain, true
+  advance(p)
+  if codomain, ok := parse_type(p); ok do return arrow(domain, codomain), true
+  return nil, false
 }
 ```
 
@@ -140,31 +140,31 @@ takes a term and a context, and either returns the type of the term, or fails.
 
 ```odin
 typecheck :: proc(ctx: map[string]^Type, term: ^Term) -> (^Type, bool) {
-	if var, ok := term.(Var); ok {
-		if t, ok := ctx[var.name]; ok do return t, true
-		return nil, false
-	} else if abs, ok := term.(Abs); ok {
-		abs_ctx := make(map[string]^Type)
-		for key, value in ctx do abs_ctx[key] = value
-		abs_ctx[abs.param] = abs.param_type
+  if var, ok := term.(Var); ok {
+    if t, ok := ctx[var.name]; ok do return t, true
+    return nil, false
+  } else if abs, ok := term.(Abs); ok {
+    abs_ctx := make(map[string]^Type)
+    for key, value in ctx do abs_ctx[key] = value
+    abs_ctx[abs.param] = abs.param_type
 
-		codomain, ok := typecheck(abs_ctx, abs.body)
-		if !ok do return nil, false
+    codomain, ok := typecheck(abs_ctx, abs.body)
+    if !ok do return nil, false
 
-		return arrow(abs.param_type, codomain), true
-	} else if app, ok := term.(App); ok {
-		f, ok1 := typecheck(ctx, app.rator)
-		if !ok1 do return nil, false
+    return arrow(abs.param_type, codomain), true
+  } else if app, ok := term.(App); ok {
+    f, ok1 := typecheck(ctx, app.rator)
+    if !ok1 do return nil, false
 
-		f_arrow, ok2 := f.(TypeArrow)
-		if !ok2 do return nil, false
+    f_arrow, ok2 := f.(TypeArrow)
+    if !ok2 do return nil, false
 
-		a, ok3 := typecheck(ctx, app.rand)
-		if !ok3 do return nil, false
+    a, ok3 := typecheck(ctx, app.rand)
+    if !ok3 do return nil, false
 
-		if !are_same_type(a, f_arrow.domain) do return nil, false
-		return f_arrow.codomain, true
-	}
+    if !are_same_type(a, f_arrow.domain) do return nil, false
+    return f_arrow.codomain, true
+  }
 
     unreachable()
 }
@@ -201,8 +201,8 @@ source [here](https://github.com/fidzod/lambda-calculus/tree/main/stlc). Now
 let's see what STLC can do.
 
 ## The Wall
-Now we have a typed language, let's try and reimplement the standard library
-from our untyped implementation.
+At this point we have a working typed language, let's try and reimplement the
+standard library from our untyped implementation.
 
 Once again we'll start with the simplest thing:
 
@@ -218,7 +218,7 @@ first, so tentatively:
 let tru = \x: A. \y: B. x
 ```
 
-The typechecker will tell us the full type of `tru` is A->B->A. But, what are A
+The typechecker will tell us the full type of `tru` is `A->B->A`. But what are A
 and B? Let's say we have `Bool` and `Nat` - these are just names - and pick one:
 
 ```text
@@ -238,7 +238,7 @@ The problem is that `p q` requires `q` to have the same type as `p`'s domain,
 but `p` *is* a `Bool->Bool->Bool`, so its domain is `Bool->Bool->Bool`, which
 means `q` would need to be a `Bool->Bool->Bool` whose domain is
 `Bool->Bool->Bool` and so on. You need a self-referential type, and STLC can't
-express it.
+express this.
 
 Church numerals fail for exactly the same reason. The numeral `n` applies a
 function `f` to a value `x` exactly `n` times - so `n : (A->A)->A->A` for some
@@ -249,7 +249,7 @@ have it.
 
 What about the Y combinator? `Y = \f. (\x. f (x x)) (\x. f (x x))`. The inner
 term `x x` applies `x` to itself, so `x` would need to have type `A→B` and type
-`A` simultaneously — that is, `A = A→B`. Which is, again, self-referential.
+`A` simultaneously - that is, `A = A→B`. Which is, again, self-referential.
 
 Furthermore, our `tru` definition might well have been accepted by the
 typechecker, but you've probably noticed we can't pass it a value to test it.
@@ -268,13 +268,13 @@ find the minimal primitive core that will allow for adequate expressiveness.
 ### Literals
 
 The first thing we need is something to actually talk about. Notice how before
-we were able to implement `tru` but not test it. The solution is literals. So,
-we add `true, `false` and `0` to the term AST.
+we were able to implement `tru` but not test it? The solution is literals. So,
+we add `true`, `false` and `0` to the term AST.
 
 ```odin
 Term :: union {
-    Var, Abs, App,
-    True, False, Zero,
+  Var, Abs, App,
+  True, False, Zero,
 }
 
 True  :: struct {}
@@ -388,7 +388,7 @@ We can't write `if` as a function, because a function `if : Bool->T->T->T` would
 type variable `T`, which STLC doesn't have. So we add it as a special form, and
 the typechecker handles it directly.
 
-The parsing and reduction are all straightforward, and follow the pattern established by
+Parsing and reduction are straightforward, they follow the pattern established by
 `succ`, `pred`, and `iszero`. The typechecking rule is interesting:
 
 ```odin
@@ -411,7 +411,7 @@ if if_stmt, ok := term.(If); ok {
 The condition must be `Bool`. Both branches must have the same type - whatever
 that type is. This is what makes `if` polymorphic without type variables: the
 typechecker checks both branches and insists they agree, rather than requiring
-them to match a fixed concrete type. The reducer just fires the appropriate
+them to match a fixed type. The reducer just fires the appropriate
 branch once the condition has reduced to `true` or `false`.
 
 ```
@@ -488,14 +488,14 @@ t ::= x                    -- variable
 τ ::= Bool | Nat | τ → τ
 
 -- New reduction rules
-succ n          →  n+1
-pred 0          →  0
-pred (succ n)   →  n
-iszero 0        →  true
-iszero (succ n) →  false
+succ n                    →  n+1
+pred 0                    →  0
+pred (succ n)             →  n
+iszero 0                  →  true
+iszero (succ n)           →  false
 if true  then t₁ else t₂  →  t₁
 if false then t₁ else t₂  →  t₂
-fix f           →  f (fix f)
+fix f                     →  f (fix f)
 ```
 
 It turns out that this has a name: PCF, or Programming Computable Functions,
@@ -507,7 +507,7 @@ get a real language. We have done the same thing, one layer up.
 
 ## At Last: The Standard Library
 
-With our primitives `Bool`, `Nat`, literals, `succ`, `pred`, `iszero`, `if`,
+With `Bool`, `Nat`, literals, `succ`, `pred`, `iszero`, `if`,
 and `fix` in place, we have enough to write a standard library. Let's start with
 `add`:
 
@@ -529,8 +529,8 @@ let mult = fix (\go: Nat->Nat->Nat. \m:Nat. \n:Nat.
     else (add (go (pred m) n) n))
 ```
 
-Subtraction works a lot like add too, we don't need the slide trick from part
-one, since we have `pred` - we just need to iterate it:
+Subtraction works a lot like add too. We no longer need the slide trick from part
+one since we have `pred` - we just need to iterate it:
 
 ```text
 let sub = fix (\go: Nat->Nat->Nat. \m:Nat. \n:Nat.
@@ -550,7 +550,7 @@ let not = \x:Bool. if x then false else true
 
 Compare this to the untyped versions. In part one, `and p q` was `p q fls` -
 booleans as selectors. Here, `and` just uses `if` directly. The encoding is
-gone; the meaning is on the surface.
+gone and the meaning is on the surface.
 
 With `sub` and `iszero` we get comparisons:
 
@@ -588,28 +588,28 @@ from the ground up.
 Let's look back at the typing rules we've been working with:
 
 ```text
-Γ, x:A ⊢ x : A                               (Var)
+Γ, x:A ⊢ x : A                   (Var)
 
 Γ, x:A ⊢ t : B
-─────────────────────────────                (Abs)
+─────────────────────────────    (Abs)
 Γ ⊢ λx:A. t : A→B
 
 Γ ⊢ t₁ : A→B    Γ ⊢ t₂ : A
-─────────────────────────────                (App)
+─────────────────────────────    (App)
 Γ ⊢ t₁ t₂ : B
 ```
 
 Now look at these - the natural deduction rules for propositional implication:
 
 ```text
-Γ, A ⊢ A                                     (Assumption)
+Γ, A ⊢ A               (Assumption)
 
 Γ, A ⊢ B
-──────────                                   (→-Intro)
+──────────             (→-Intro)
 Γ ⊢ A → B
 
 Γ ⊢ A → B    Γ ⊢ A
-───────────────────                          (→-Elim)
+───────────────────    (→-Elim)
 Γ ⊢ B
 ```
 
@@ -652,7 +652,7 @@ simplification *is* computation. They're the same thing.
 Something broke when we added `fix`. `fix (\x: τ. x))` has type `τ` for any `τ`
 you choose. Hand the identity function to `fix` and you get a term of whatever
 type you like. Under Curry-Howard, that means a proof of any proposition -
-including false ones, and contradictions. The logic becomes trivial, because
+including false ones and contradictions. The logic becomes trivial, because
 every proposition is provable.
 
 This isn't a bug in the implementation though, it's just the cost of general
@@ -662,7 +662,7 @@ Cut elimination fails. The correspondence is ruptured.
 
 There is a clean trade-off: you can have consistent logic, or you can have
 Turing completeness, but you can't have both. PCF chooses Turing completeness,
-and `fib` works - the logic is inconsistent.
+and `fib` works, and the logic is inconsistent.
 
 Languages that sit on the other side of this trade-off - Agda, Coq, Lean -
 refuse fix in its unrestricted form. They only permit recursion that can be
