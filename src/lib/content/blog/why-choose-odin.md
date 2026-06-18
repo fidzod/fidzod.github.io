@@ -5,7 +5,7 @@ description: "Rust solves real problems, but it doesn't know when to stop. Here 
 ---
 
 A year ago I was in need of a systems programming language having not used one
-for a while. I considered at C, Rust, Zig, Nim, and Odin. Odin was the one I was
+for a while. I considered C, Rust, Zig, Nim, and Odin. Odin was the one I was
 least excited about.
 
 Odin arguably lacks a compelling elevator pitch. What's exciting about it? It
@@ -23,11 +23,11 @@ writing it in 2026 means carrying the weight of decisions made in 1972. The
 question is not really whether we need something else, but rather what could
 replace it.
 
-The consensus answer is Rust, and I understand why. Rust solves real problems.
-Its ownership model eliminates a class of memory bugs at compile time, its type
-system is sophisticated, and it has accumulated a serious ecosystem. If you are
-writing software where memory safety is a hard requirement and you are willing
-to pay the cognitive overhead, Rust makes a genuine case for itself.
+The consensus answer is Rust, and this is understandable because Rust solves real
+problems. Its ownership model eliminates a class of memory bugs at compile time,
+its type system is sophisticated, and it has accumulated a serious ecosystem. If
+you are writing software where memory safety is a hard requirement and you are
+willing to pay the cognitive overhead, Rust does make a genuine case for itself.
 
 But I find Rust philosophically confused, and practically unpleasant to write.
 
@@ -40,7 +40,7 @@ you must choose between before you have written anything useful. No individual
 feature is indefensible. But Rust has no theory of enough, and the cumulative
 weight of it shows. For any given thing you need to do, there are several ways
 to do it, and for me that is a bug not a feature - it signals inelegance, not
-purely flexibility. The accidental complexity is very high. The essential
+purely flexibility. The accidental complexity is very high, the essential
 complexity is the same as it would have been in C.
 
 This is before we get to Cargo, to the procedural macro ecosystem, to the
@@ -50,11 +50,16 @@ learned helplessness they seem to produce, the sense that the correct response
 to needing something is to find a crate rather than to understand the problem.
 Rust has this in abundance.
 
-Zig is more interesting, and I have more sympathy for it. It takes the right
-lesson from C - that simplicity is a virtue - and runs with it. Comptime is
-genuinely clever. The explicit allocator model is the right idea. But Zig
-overemphasises testing to the point where it imposes structure on you, and
-its error handling, while principled, produces a kind of noise I find exhausting.
+That is without mentioning the security problems
+this attitude generates - I'm sure you're already thinking about [what's been going on
+with NPM
+recently](https://arstechnica.com/security/2026/06/dozens-of-red-hat-packages-backdoored-through-its-offical-npm-channel/).
+
+Zig is more interesting, and I do have more sympathy for it. It takes the right
+lesson from C - that simplicity is a virtue. Comptime is genuinely clever.
+The explicit allocator model is the right idea. But Zig overemphasises testing to
+the point where it imposes structure on you, and its error handling, while
+principled, produces a kind of noise I find exhausting.
 
 I am a fan of Scheme. Not as a production language - I don't build things in Scheme -
 but as a design object. Scheme is what you get when you ask: what is the minimum you
@@ -84,6 +89,9 @@ The build system philosophy - `odin build .`, `odin run .`, and
 not much else - is the language's personality made practical. There is no Cargo.
 There is no cmake. Just a directory and a command.
 
+(Also: the data-driven paradigm which Odin forces on you will make you never
+want to go back to OOP.)
+
 This matters because friction is not neutral. Every unnecessary step between you and
 building something is a small argument that the tooling is more important than the work.
 Odin's tooling makes the opposite argument. It is quiet about itself.
@@ -98,4 +106,5 @@ Odin is where I start. It does not get in the way. It does not have opinions abo
 my project structure, does not require a manifest file to build a single executable,
 does not ask me to learn its internal architecture before I can be productive.
 
-It is, in the end, a quiet, simple language, that gets out of your way.
+It is a quiet, simple language, that gets out of your way, so you can focus on
+what you're building.
