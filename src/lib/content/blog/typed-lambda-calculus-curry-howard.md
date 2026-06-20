@@ -1,7 +1,7 @@
 ---
 title: "Types as Propositions, Proofs as Programs: Implementing STLC and PCF"
 date: 2026-06-18
-description: "We extend our lambda calculus interpreter with a type system, discover that almost nothing from the untyped standard library survives, derive PCF from first principles, and arrive somewhere unexpected: the typechecker we wrote is also a proof checker - the Curry-Howard isomorphism."
+description: "We extend our lambda calculus interpreter with a type system, discover that almost nothing from the untyped standard library survives, derive PCF from first principles, and arrive somewhere unexpected: the typechecker we wrote is also a proof checker - Curry-Howard isomorphism."
 ---
 
 In [part one](/blog/lambda-calculus-interpreter-in-odin) we built a lambda

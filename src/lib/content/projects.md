@@ -2,14 +2,16 @@
 *What I've been working on recently*
 
 - [Lemuria](https://github.com/fidzod/lemuria)
-*Letterboxd and Early-Facebook inspired social media site.
-Built with a modern web stack: Bun, Typescript, Hono, Drizzle,
-Svelte 5 and Sveltekit.*
+*A social platform built around two-sided friendships, shelves, and topic-based
+boards. Inspired by Letterboxd and early Facebook. Built with Bun, Typescript,
+Hono, Drizzle, Svelte 5 and SvelteKit.*
 
 - [Camel.py](https://github.com/fidzod/camel)
-*A Python-native UI framework that compiles to vanilla JS.
-Write web UIs in pure, idomatic python.*
+*A reactive SPA framework for Python. Camel compiles a Python UI description to
+a typed intermediate representation, then interprets it with a small vanilla JS
+runtime.*
 
 - [Kaworu Linux](https://github.com/fidzod/kaworu-linux)
-*An elegant NixOS rice with flakes, built around Hyprland, Home
-Manager and Stylix.*
+*A minimal NixOS rice (configuration) built around Hyprland, Home Manager and
+Stylix. Declarative, reproducible, and opinionated: the entire system - window
+manager, terminal, editor, theme - is defined in a single flake.*
