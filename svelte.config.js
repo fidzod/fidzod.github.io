@@ -4,7 +4,7 @@ import { createHighlighter } from 'shiki';
 
 const highlighter = await createHighlighter({
   themes: ['min-light'],
-  langs: ['odin']
+  langs: ['odin', 'typescript']
 });
 
 /** @type {import('@sveltejs/kit').Config} */

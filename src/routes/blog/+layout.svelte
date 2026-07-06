@@ -18,4 +18,7 @@
     min-height: 75vh;
     margin: var(--space-lg) auto;
   }
+  :global(img) {
+    width: 100%;
+  }
 </style>

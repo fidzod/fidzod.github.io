@@ -1,13 +1,27 @@
 <script lang="ts">
-  import BlogSummary from '$lib/components/BlogSummary.svelte';
-  import ImageMenu from '$lib/components/ImageMenu.svelte';
-    import MobileHeader from '$lib/components/MobileHeader.svelte';
-  import Bio from '$lib/content/bio.md';
-  import Projects from '$lib/content/projects.md';
-  import type { PageData } from './$types';
+  import BlogSummary from "$lib/components/BlogSummary.svelte";
+  import ImageMenu from "$lib/components/ImageMenu.svelte";
+  import MobileHeader from "$lib/components/MobileHeader.svelte";
+  import Bio from "$lib/content/bio.md";
+  import Projects from "$lib/content/projects.md";
+  import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
 </script>
+
+<svelte:head>
+  <title>Toby Jordan</title>
+  <meta
+    name="description"
+    content="Writings on technology, philosophy, and their intersection"
+  />
+  <meta property="og:title" content="Toby Jordan" />
+  <meta
+    property="og:description"
+    content="Writings on technology, philosophy, and their intersection"
+  />
+  <meta property="og:url" content="https://tobyjordan.com" />
+</svelte:head>
 
 <div id="container">
   <aside>
