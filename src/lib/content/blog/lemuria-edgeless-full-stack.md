@@ -13,7 +13,7 @@ deployed frontend. It's live now at
 learned along the way, and in a couple of cases, what I got wrong before I got
 it right.
 
-![](/src/lib/assets/screenshot-homepage.jpg)
+![](/images/screenshot-homepage.jpg)
 
 ## Product
 
@@ -36,7 +36,7 @@ OMDb for films, OpenLibrary for books, MusicBrainz for albums, with live
 suggestions and a display component that renders covers on physical shelves
 on a user's profile.
 
-![](/src/lib/assets/screenshot-profile.jpg)
+![](/images/screenshot-profile.jpg)
 
 ## The Tech Stack
 
