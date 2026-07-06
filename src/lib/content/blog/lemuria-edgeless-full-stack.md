@@ -1,5 +1,5 @@
 ---
-title: "Building Lemuria: A Bleeding-edge stack for Deployment to the Edge"
+title: "Building Lemuria: A Bleeding-Edge Stack for Deployment to the Edge"
 date: 2026-07-05
 description: "A social platform built on two-sided friendships and a stack
 chosen for the edge, and the two decisions - a package manager and a schema
@@ -73,8 +73,8 @@ which might be the best thing you can say about a framework.
 **Bun**, I'm less sure about. It's fast and genuinely pleasant to use day to
 day, installs are quick, the built-in tooling covers most of what you'd
 otherwise reach for separately, and working with files or hashing passwords
-natively, without importing anything, feels better than equivalent in Node. I
-liked it. Past tense, though I've come round to thinking Bun was probably the
+natively, without importing anything, feels better than the equivalent in Node. I
+liked it - though I've come round to thinking Bun was probably the
 wrong choice for this particular project.
 
 The problem is that Cloudflare Workers don't run on Bun's runtime, so
@@ -125,8 +125,8 @@ the problem you're solving. You build around it.
 The database is Turso, a managed SQLite service built on libSQL, a fork of
 SQLite with replication support. The model mirrors the Workers philosophy:
 replicas are distributed across regions, so queries run close to wherever
-they're initiated. SQLite changes the mental model relative to Postgres too
-- there's no connection pool to manage, no pgBouncer, no connection limits
+they're initiated. SQLite changes the mental model relative to Postgres too -
+there's no connection pool to manage, no pgBouncer, no connection limits
 to tune, and for a small social platform that simplicity turns out to be a
 genuine feature rather than a compromise. Drizzle sits on top of it,
 providing the typed schema and query builder.
@@ -192,8 +192,8 @@ hard to query the moment each type carries meaningfully different data.
 
 The lesson was correct. I just applied it to the wrong problem.
 
-Shelf items feel distinct but actually normalise cleanly to the same shape
-- title, subtitle, cover image, external ID is the whole interface - and
+Shelf items feel distinct but actually normalise cleanly to the same shape -
+title, subtitle, cover image, external ID is the whole interface - and
 the query for fetching someone's shelf ended up being three joins that
 never needed to exist:
 
@@ -238,7 +238,7 @@ the right one. What I actually learned wasn't "are these different types?"
 but something closer to: do these types have meaningfully different data
 you'll need to query separately? Shelf items don't. Notifications do.
 Getting it backwards taught me the distinction more thoroughly than getting
-it right the first time ever would have.
+it right the first time would have.
 
 ## Building Without AI
 
