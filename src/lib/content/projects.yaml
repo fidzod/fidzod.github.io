@@ -1,0 +1,14 @@
+- name: Lemuria
+  url: https://github.com/fidzod/lemuria
+  description: A social platform built around two-sided friendships, shelves, and topic-based boards. Inspired by Letterboxd and early Facebook.
+  tech: [Bun, TypeScript, Hono, Drizzle, Svelte 5, SvelteKit]
+
+- name: Camel.py
+  url: https://github.com/fidzod/camel
+  description: A reactive SPA framework for Python. Camel compiles a Python UI description to a typed intermediate representation, then interprets it with a small vanilla JS runtime.
+  tech: [Python, JavaScript]
+
+- name: Kaworu Linux
+  url: https://github.com/fidzod/kaworu-linux
+  description: A minimal NixOS rice built around Hyprland, Home Manager and Stylix. Declarative, reproducible, and opinionated — the entire system is defined in a single flake.
+  tech: [NixOS, Nix, Hyprland]

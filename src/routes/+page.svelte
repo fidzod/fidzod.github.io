@@ -1,9 +1,9 @@
 <script lang="ts">
-import BlogSummary from '$lib/components/BlogSummary.svelte';
+import PostList from '$lib/components/PostList.svelte';
 import DesktopNav from '$lib/components/DesktopNav.svelte';
 import MobileHeader from '$lib/components/MobileHeader.svelte';
+import Projects from '$lib/components/Projects.svelte';
 import Bio from '$lib/content/bio.md';
-import Projects from '$lib/content/projects.md';
 import type { PageData } from './$types';
 
 let { data }: { data: PageData } = $props();
@@ -34,7 +34,7 @@ let { data }: { data: PageData } = $props();
       </div>
       <Bio />
       <Projects />
-      <BlogSummary posts={data.posts} />
+      <PostList posts={data.posts} />
     </div>
   </main>
 </div>

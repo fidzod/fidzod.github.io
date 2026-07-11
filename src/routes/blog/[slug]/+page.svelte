@@ -19,11 +19,15 @@ let { data }: { data: PageData } = $props();
 <article>
   <div class="prose">
     <h1>{data.post.meta.title}</h1>
-    <p>
+    <div class="meta">
       <time datetime={data.post.meta.date}>
-        {new Date(data.post.meta.date).toLocaleDateString()}
+        {new Date(data.post.meta.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
       </time>
-    </p>
+      {#if data.post.meta.tags?.length}
+        <span>·</span>
+        <span>{data.post.meta.tags.join(' · ')}</span>
+      {/if}
+    </div>
     <data.post.component />
   </div>
 </article>
@@ -45,6 +49,17 @@ let { data }: { data: PageData } = $props();
 <style>
   article {
     margin-block-end: var(--space-lg);
+  }
+  .meta {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-xs);
+    font-size: var(--text-sm);
+    opacity: 0.6;
+
+    time {
+      opacity: 1 !important;
+    }
   }
   nav {
     margin-block-end: var(--space-xl);

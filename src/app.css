@@ -19,16 +19,21 @@
   --space-flow-heading: 0.25em;
   --space-flow-subtitle: 0.15em;
   --space-flow-after-subtitle: 1.5em;
+  --space-flow-after-section-subtitle: var(--space-sm);
   --text-sm: 0.8rem;
+  --text-h1: 1.5em;
+  --text-h2: 1.25em;
+  --border-radius: 4px;
+  --bg-card: #f7f7f5;
 }
 body {
   font-family: "Crimson Text";
 }
 h1 {
-  font-size: 1.5em;
+  font-size: var(--text-h1);
 }
 h2 {
-  font-size: 1.25em;
+  font-size: var(--text-h2);
 }
 a {
   --link-color: var(--text-link);
@@ -43,7 +48,7 @@ time {
 }
 pre {
   padding: var(--space-sm);
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   border: 1px solid var(--border-subtle);
   overflow-x: scroll;
   font-size: inherit;
@@ -60,8 +65,18 @@ pre {
   margin-block-start: var(--space-flow-subtitle, 0.15em);
 }
 
-.prose p:has(> em) + * {
+.prose h1 + p:has(> em) + * {
   margin-block-start: var(--space-flow-after-subtitle, 1.5em);
+}
+
+.prose h2 + p:has(> em) + * {
+  margin-block-start: var(--space-flow-after-section-subtitle);
+}
+.card {
+  background-color: var(--bg-card);
+  border-left: 1px dashed var(--text-primary);
+  padding-block: var(--space-xs);
+  padding-inline: var(--space-md);
 }
 .prose p {
   text-align: justify;

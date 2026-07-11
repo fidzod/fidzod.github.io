@@ -1,5 +1,5 @@
 <script lang="ts">
-import BlogSummary from '$lib/components/BlogSummary.svelte';
+import PostList from '$lib/components/PostList.svelte';
 import type { PageData } from './$types';
 
 let { data }: { data: PageData } = $props();
@@ -14,5 +14,5 @@ let { data }: { data: PageData } = $props();
 </svelte:head>
 
 <div class="prose">
-  <BlogSummary posts={data.posts} title={"Toby Jordan's Blog"} seeAll={false} />
+  <PostList posts={data.posts} title={"Toby Jordan's Blog"} seeAll={false} />
 </div>
