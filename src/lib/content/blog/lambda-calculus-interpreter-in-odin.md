@@ -2,6 +2,7 @@
 title: "Building a Lambda Calculus Interpreter in Odin"
 date: 2026-06-13
 description: "Lambda calculus has three rules, and yet booleans, arithmetic, linked lists, and recursion fall out of them. This is an account of building an interpreter for it in Odin - and of the theory that ambushes you along the way."
+tags: ["lambda calculus", "odin", "interpreters", "programming languages"]
 ---
 
 I firmly believe that to understand something fully you have to build it from

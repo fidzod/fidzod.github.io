@@ -4,6 +4,7 @@ date: 2026-07-05
 description: "A social platform built on two-sided friendships and a stack
 chosen for the edge, and the two decisions - a package manager and a schema
 pattern - that taught me the most by being wrong."
+tags: ["full-stack", "edge computing", "cloudflare", "svelte"]
 ---
 
 Lemuria is a social platform I built as a portfolio piece and learning project,

@@ -15,7 +15,7 @@ let {
 <h2>{title}</h2>
 <p><em>Writings on technology, philosophy, and their intersection</em></p>
 
-<ul>
+<ul class="blog-posts">
   {#each posts as post (post.slug)}
     <li>
       <article>
@@ -24,6 +24,11 @@ let {
           >({new Date(post.meta.date).toLocaleDateString()})</time
         >
         <p>{post.meta.description}</p>
+        <ul class="tags">
+          {#each post.meta.tags as tag}
+          <li>{tag}</li>
+          {/each}
+        </ul>
       </article>
     </li>
   {/each}
@@ -35,7 +40,7 @@ let {
 </ul>
 
 <style>
-  ul {
+  ul.blog-posts {
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
@@ -49,6 +54,16 @@ let {
     margin: 0;
   }
   time {
+    font-size: var(--text-sm);
+  }
+  ul.tags {
+    display: flex;
+    gap: var(--space-sm);
+  }
+  ul.tags li {
+    background-color: #eee;
+    border: 1px solid #aaa;
+    padding-inline: var(--space-xs);
     font-size: var(--text-sm);
   }
 </style>

@@ -2,6 +2,7 @@
 title: "Why I Choose Odin over Rust or C"
 date: 2026-06-09
 description: "I needed a systems language, so I tried Rust, Zig, C, Nim, and Odin. This is the case for Odin - and what Scheme taught me about what it means for a language to know what it is."
+tags: ["odin", "systems programming", "programming languages", "rust"]
 ---
 
 A year ago I was in need of a systems programming language having not used one
