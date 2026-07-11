@@ -1,10 +1,15 @@
 <script lang="ts">
-  import type { Post } from "$lib/blog";
+import type { Post } from '$lib/blog';
 
-  let { posts, title = "Blog" }: {
-    posts: Post[],
-    title?: string,
-  } = $props();
+let {
+  posts,
+  title = 'Blog',
+  seeAll = true
+}: {
+  posts: Post[];
+  title?: string;
+  seeAll?: boolean;
+} = $props();
 </script>
 
 <h2>{title}</h2>
@@ -22,9 +27,11 @@
       </article>
     </li>
   {/each}
+  {#if seeAll}
   <li class="see-all">
     <a href="/blog">See all...</a>
   </li>
+  {/if}
 </ul>
 
 <style>

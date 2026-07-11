@@ -1,12 +1,12 @@
 <script lang="ts">
-  import BlogSummary from "$lib/components/BlogSummary.svelte";
-  import ImageMenu from "$lib/components/ImageMenu.svelte";
-  import MobileHeader from "$lib/components/MobileHeader.svelte";
-  import Bio from "$lib/content/bio.md";
-  import Projects from "$lib/content/projects.md";
-  import type { PageData } from "./$types";
+import BlogSummary from '$lib/components/BlogSummary.svelte';
+import DesktopNav from '$lib/components/DesktopNav.svelte';
+import MobileHeader from '$lib/components/MobileHeader.svelte';
+import Bio from '$lib/content/bio.md';
+import Projects from '$lib/content/projects.md';
+import type { PageData } from './$types';
 
-  let { data }: { data: PageData } = $props();
+let { data }: { data: PageData } = $props();
 </script>
 
 <svelte:head>
@@ -25,7 +25,7 @@
 
 <div id="container">
   <aside>
-    <ImageMenu />
+    <DesktopNav />
   </aside>
   <main>
     <div class="prose">
@@ -48,7 +48,6 @@
     margin: var(--space-xl) auto;
   }
   main {
-    margin-block-start: var(--space-lg);
     margin-inline-end: var(--space-lg);
   }
   .mobile-only {

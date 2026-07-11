@@ -1,10 +1,10 @@
 # Toby Jordan
 *Self-Taught Programmer and Philosophy & RS Graduate*
 
-I am a self-taught programmer and graduate this year in
-Philosophy and Religious Studies from the University of Manchester, UK.
-I have always been passionate about computers, and started programming
-at 10 years-old.
+I am a self-taught programmer and will graduate this year with a First Class
+degree in Philosophy and Religious Studies from the University of Manchester,
+UK. I have always been passionate about computers, and started programming at 10
+years-old.
 
 I am proficient in **Typescript**, **Python**, and **Odin**. I have built
 full-stack type-safe web applications in Typescript using a modern tech stack

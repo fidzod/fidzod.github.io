@@ -1,4 +1,4 @@
-import type { SvelteComponent } from "svelte";
+import type { SvelteComponent } from 'svelte';
 
 export interface PostMeta {
   title: string;
@@ -27,4 +27,7 @@ export const getPosts = (): Post[] =>
         component: module.default
       };
     })
-    .sort((a, b) => new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime());
+    .sort(
+      (a, b) =>
+        new Date(b.meta.date).getTime() - new Date(a.meta.date).getTime()
+    );

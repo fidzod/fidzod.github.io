@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Avatar from '$lib/assets/avatar.png';
+import Avatar from '$lib/assets/avatar.png';
 </script>
 
 <img src={Avatar} alt="Avatar">

@@ -15,12 +15,13 @@ const config = {
       extensions: ['.md'],
       highlight: {
         highlighter: (code, lang) => {
-          return highlighter.codeToHtml(code, {
-            lang: lang ?? 'text',
-            theme: 'min-light'
-          })
-          .replace(/\{/g, '&#123;')
-          .replace(/\}/g, '&#125;');
+          return highlighter
+            .codeToHtml(code, {
+              lang: lang ?? 'text',
+              theme: 'min-light'
+            })
+            .replace(/\{/g, '&#123;')
+            .replace(/\}/g, '&#125;');
         }
       }
     })
