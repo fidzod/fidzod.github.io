@@ -63,8 +63,8 @@ $effect(() => {
   nav {
     width: 180px;
     position: sticky;
-    top: calc(24px + var(--space-xl));
-    margin-block-start: 24px;
+    top: calc(var(--space-md) + var(--space-xl));
+    margin-block-start: var(--space-md);
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
@@ -83,9 +83,6 @@ $effect(() => {
     display: flex;
     gap: var(--space-sm);
     align-items: center;
-  }
-  :global(.links svg) {
-    color: var(--text-primary);
   }
   ul {
     display: flex;

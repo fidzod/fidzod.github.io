@@ -66,7 +66,7 @@
     left: 0;
     display: flex;
     flex-direction: column;
-    padding: var(--space-xs) var(--space-sm) var(--space-xs) calc(13px + var(--space-xs));
+    padding: var(--space-xs) var(--space-sm);
     background-color: var(--bg-card);
     border: 1px solid var(--border-subtle);
     border-radius: var(--border-radius);

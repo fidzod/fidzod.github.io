@@ -18,7 +18,7 @@ let { children }: { children: Snippet } = $props();
     min-height: 75vh;
     margin: var(--space-lg) auto;
   }
-  :global(img) {
+  :global(article img) {
     width: 100%;
   }
 </style>

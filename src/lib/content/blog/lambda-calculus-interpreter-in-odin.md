@@ -178,22 +178,22 @@ parenthesis:
 
 ```odin
 parse_atom :: proc(p: ^Parser) -> (^Term, bool) {
-	tok := advance(p)
-	if v, ok := tok.(TName); ok {
-		term := new(Term)
-		term^ = Var {
-			name = v.value,
-		}
-		return term, true
-	} else if _, ok := tok.(TLParen); ok {
-		term, parse_ok := parse_term(p)
-		if !parse_ok do return nil, false
-		if !expect(p, TRParen) do return nil, false
-		return term, true
-	} else {
-		fmt.eprintln("Unexpected token")
-		return nil, false
-	}
+  tok := advance(p)
+  if v, ok := tok.(TName); ok {
+    term := new(Term)
+    term^ = Var {
+      name = v.value,
+    }
+    return term, true
+  } else if _, ok := tok.(TLParen); ok {
+    term, parse_ok := parse_term(p)
+    if !parse_ok do return nil, false
+    if !expect(p, TRParen) do return nil, false
+    return term, true
+  } else {
+    fmt.eprintln("Unexpected token")
+    return nil, false
+  }
 }
 ```
 
@@ -209,8 +209,8 @@ anything else is assumed to be an application:
 
 ```odin
 parse_term :: proc(p: ^Parser) -> (^Term, bool) {
-	if _, isTLambda := peek(p).(TLambda); isTLambda do return parse_abs(p)
-	return parse_app(p)
+  if _, isTLambda := peek(p).(TLambda); isTLambda do return parse_abs(p)
+  return parse_app(p)
 }
 ```
 The simplicity of this proc is the payoff for our layered grammar - all

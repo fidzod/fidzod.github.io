@@ -5,14 +5,12 @@
 
 <style>
   footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
     margin-inline: auto;
+    margin-block-end: var(--space-lg);
     max-width: calc(100vw - 2rem);
     text-align: center;
-  }
-  p {
-    margin-block-end: var(--space-md);
-  }
-  p:last-child {
-    margin-block-end: var(--space-lg);
   }
 </style>

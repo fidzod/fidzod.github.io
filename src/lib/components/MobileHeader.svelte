@@ -41,7 +41,7 @@ $effect(() => {
     </a>
   </div>
 
-  <ul class="meta">
+  <ul class="location">
     <li><MapPin size={13} /> Manchester, UK</li>
     <li><Clock size={13} /> {time}</li>
   </ul>
@@ -69,16 +69,13 @@ $effect(() => {
     gap: var(--space-sm);
     align-items: flex-end;
   }
-  :global(.links svg) {
-    color: var(--text-primary);
-  }
-  .meta {
+  .location {
     display: flex;
     gap: var(--space-md);
     justify-content: center;
     align-items: flex-end;
   }
-  .meta li {
+  .location li {
     display: flex;
     gap: var(--space-xs);
     align-items: center;

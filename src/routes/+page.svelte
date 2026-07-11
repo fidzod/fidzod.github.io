@@ -51,7 +51,7 @@ let { data }: { data: PageData } = $props();
     margin-inline-end: var(--space-lg);
   }
   .mobile-only {
-    margin-block-end: 3rem;
+    margin-block-end: var(--space-lg);
     display: none;
   }
   @media (max-width: 800px) {

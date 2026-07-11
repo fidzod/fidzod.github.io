@@ -22,7 +22,6 @@
   --border-radius: 4px;
 }
 
-/* Chicago Day — default */
 :root,
 [data-theme="chicago-day"] {
   --bg: #e8f0ea;
@@ -85,8 +84,7 @@ h2 {
 }
 
 a {
-  --link-color: var(--text-link);
-  color: var(--link-color);
+  color: var(--text-link);
 
   &:hover {
     opacity: 0.8;
@@ -97,7 +95,7 @@ pre {
   padding: var(--space-sm);
   border-radius: var(--border-radius);
   border: 1px solid var(--border-subtle);
-  overflow-x: scroll;
+  overflow-x: auto;
   font-size: inherit;
   background-color: var(--bg-card);
 }
@@ -107,6 +105,10 @@ pre {
   border-left: 1px dashed var(--text-primary);
   padding-block: var(--space-xs);
   padding-inline: var(--space-md);
+}
+
+.links svg {
+  color: var(--text-primary);
 }
 
 .prose * + * {
@@ -138,17 +140,6 @@ pre {
   color: var(--text-muted);
 }
 
-/* Syntax highlighting — per-theme Shiki CSS variables */
-[data-theme="chicago-day"] .shiki span { color: var(--shiki-chicago-day); }
-[data-theme="black-metal-burzum"] .shiki span { color: var(--shiki-black-metal-burzum); }
-[data-theme="apathy"] .shiki span { color: var(--shiki-apathy); }
-[data-theme="catppuccin-macchiato"] .shiki span { color: var(--shiki-catppuccin-macchiato); }
-[data-theme="catppuccin-latte"] .shiki span { color: var(--shiki-catppuccin-latte); }
-
-.meta > * {
-  margin-block-start: 0;
-}
-
 .prose p {
   text-align: justify;
   text-justify: inter-word;
@@ -156,3 +147,15 @@ pre {
   hyphenate-limit-chars: 5 2 2;
   word-break: break-word;
 }
+
+/* Prevents .prose * + * from adding flow margin inside flex meta rows */
+.meta > * {
+  margin-block-start: 0;
+}
+
+/* Syntax highlighting - per-theme Shiki CSS variables */
+[data-theme="chicago-day"] .shiki span { color: var(--shiki-chicago-day); }
+[data-theme="black-metal-burzum"] .shiki span { color: var(--shiki-black-metal-burzum); }
+[data-theme="apathy"] .shiki span { color: var(--shiki-apathy); }
+[data-theme="catppuccin-macchiato"] .shiki span { color: var(--shiki-catppuccin-macchiato); }
+[data-theme="catppuccin-latte"] .shiki span { color: var(--shiki-catppuccin-latte); }
