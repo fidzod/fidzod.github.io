@@ -28,10 +28,10 @@ let { data }: { data: PageData } = $props();
     <DesktopNav />
   </aside>
   <main>
+    <div class="mobile-only">
+      <MobileHeader />
+    </div>
     <div class="prose">
-      <div class="mobile-only">
-        <MobileHeader />
-      </div>
       <Bio />
       <Projects />
       <PostList posts={data.posts} />
@@ -51,7 +51,7 @@ let { data }: { data: PageData } = $props();
     margin-inline-end: var(--space-lg);
   }
   .mobile-only {
-    margin-block-end: 4rem;
+    margin-block-end: 3rem;
     display: none;
   }
   @media (max-width: 800px) {

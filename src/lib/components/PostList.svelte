@@ -31,7 +31,6 @@
         <div class="meta">
           <time datetime={post.meta.date}>{formatDate(post.meta.date)}</time>
           {#if post.meta.tags?.length}
-            <span>·</span>
             <span>{post.meta.tags.join(" · ")}</span>
           {/if}
         </div>
@@ -63,10 +62,14 @@
   }
   .meta {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: var(--space-xs);
     font-size: var(--text-sm);
     opacity: 0.6;
+  }
+  .meta time {
+    white-space: nowrap;
   }
   article p {
     font-size: var(--text-sm);

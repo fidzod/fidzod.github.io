@@ -24,7 +24,6 @@ let { data }: { data: PageData } = $props();
         {new Date(data.post.meta.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
       </time>
       {#if data.post.meta.tags?.length}
-        <span>·</span>
         <span>{data.post.meta.tags.join(' · ')}</span>
       {/if}
     </div>
@@ -52,14 +51,14 @@ let { data }: { data: PageData } = $props();
   }
   .meta {
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-end;
     gap: var(--space-xs);
     font-size: var(--text-sm);
     opacity: 0.6;
-
-    time {
-      opacity: 1 !important;
-    }
+  }
+  time {
+    white-space: nowrap;
   }
   nav {
     margin-block-end: var(--space-xl);

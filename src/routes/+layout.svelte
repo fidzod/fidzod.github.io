@@ -1,7 +1,8 @@
 <script lang="ts">
 import Footer from '$lib/components/Footer.svelte';
 import '../app.css';
-import '@fontsource/crimson-text';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/700.css';
 import type { Snippet } from 'svelte';
 
 let { children }: { children: Snippet } = $props();

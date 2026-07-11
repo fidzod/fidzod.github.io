@@ -4,12 +4,8 @@
   color: unset;
   list-style: none;
 }
+
 :root {
-  --text-primary: #000;
-  --text-link: #0000ff;
-  --bg: #fff;
-  --border-subtle: #cccfd6;
-  --prose-flow: 0.5em;
   --space-xs: 0.5rem;
   --space-sm: 0.75rem;
   --space-md: 1rem;
@@ -24,17 +20,70 @@
   --text-h1: 1.5em;
   --text-h2: 1.25em;
   --border-radius: 4px;
-  --bg-card: #f7f7f5;
 }
+
+/* Chicago Day — default */
+:root,
+[data-theme="chicago-day"] {
+  --bg: #e8f0ea;
+  --bg-card: #d1e0d7;
+  --border-subtle: #b9d0c3;
+  --text-muted: #8a9a91;
+  --text-primary: #364c40;
+  --text-link: #522398;
+}
+
+[data-theme="black-metal-burzum"] {
+  --bg: #000000;
+  --bg-card: #121212;
+  --border-subtle: #222222;
+  --text-muted: #333333;
+  --text-primary: #c1c1c1;
+  --text-link: #888888;
+}
+
+[data-theme="apathy"] {
+  --bg: #031a16;
+  --bg-card: #0b342d;
+  --border-subtle: #184e45;
+  --text-muted: #2b685e;
+  --text-primary: #81b5ac;
+  --text-link: #96883e;
+}
+
+[data-theme="catppuccin-macchiato"] {
+  --bg: #24273a;
+  --bg-card: #1e2030;
+  --border-subtle: #363a4f;
+  --text-muted: #494d64;
+  --text-primary: #cad3f5;
+  --text-link: #8aadf4;
+}
+
+[data-theme="catppuccin-latte"] {
+  --bg: #eff1f5;
+  --bg-card: #e6e9ef;
+  --border-subtle: #ccd0da;
+  --text-muted: #bcc0cc;
+  --text-primary: #4c4f69;
+  --text-link: #1e66f5;
+}
+
 body {
-  font-family: "Crimson Text";
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  background-color: var(--bg);
+  color: var(--text-primary);
 }
+
 h1 {
   font-size: var(--text-h1);
 }
+
 h2 {
   font-size: var(--text-h2);
 }
+
 a {
   --link-color: var(--text-link);
   color: var(--link-color);
@@ -43,41 +92,63 @@ a {
     opacity: 0.8;
   }
 }
-time {
-  opacity: 0.7;
-}
+
 pre {
   padding: var(--space-sm);
   border-radius: var(--border-radius);
   border: 1px solid var(--border-subtle);
   overflow-x: scroll;
   font-size: inherit;
-}
-.prose * + * {
-  margin-block-start: var(--space-flow, 1em);
+  background-color: var(--bg-card);
 }
 
-.prose :is(h1, h2, h3, h4, h5, h6) + * {
-  margin-block-start: var(--space-flow-heading, 0.25em);
-}
-
-.prose h1 + p:has(> em) {
-  margin-block-start: var(--space-flow-subtitle, 0.15em);
-}
-
-.prose h1 + p:has(> em) + * {
-  margin-block-start: var(--space-flow-after-subtitle, 1.5em);
-}
-
-.prose h2 + p:has(> em) + * {
-  margin-block-start: var(--space-flow-after-section-subtitle);
-}
 .card {
   background-color: var(--bg-card);
   border-left: 1px dashed var(--text-primary);
   padding-block: var(--space-xs);
   padding-inline: var(--space-md);
 }
+
+.prose * + * {
+  margin-block-start: var(--space-flow);
+}
+
+.prose :is(h1, h2, h3, h4, h5, h6) + * {
+  margin-block-start: var(--space-flow-heading);
+}
+
+.prose h1 + p:has(> em) {
+  margin-block-start: var(--space-flow-subtitle);
+}
+
+.prose h1 + p:has(> em) + * {
+  margin-block-start: var(--space-flow-after-subtitle);
+}
+
+.prose h2 + p:has(> em) + * {
+  margin-block-start: var(--space-flow-after-section-subtitle);
+}
+
+.prose :is(h1, h2) + p:has(> em) em {
+  font-style: normal;
+}
+
+.prose :is(h1, h2) + p:has(> em)::before {
+  content: "# ";
+  color: var(--text-muted);
+}
+
+/* Syntax highlighting — per-theme Shiki CSS variables */
+[data-theme="chicago-day"] .shiki span { color: var(--shiki-chicago-day); }
+[data-theme="black-metal-burzum"] .shiki span { color: var(--shiki-black-metal-burzum); }
+[data-theme="apathy"] .shiki span { color: var(--shiki-apathy); }
+[data-theme="catppuccin-macchiato"] .shiki span { color: var(--shiki-catppuccin-macchiato); }
+[data-theme="catppuccin-latte"] .shiki span { color: var(--shiki-catppuccin-latte); }
+
+.meta > * {
+  margin-block-start: 0;
+}
+
 .prose p {
   text-align: justify;
   text-justify: inter-word;
