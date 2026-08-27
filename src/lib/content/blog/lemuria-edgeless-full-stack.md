@@ -24,15 +24,12 @@ accustomed: audience-seeking, performance, and low-quality connection.
 
 Lemuria uses two-sided friendships - both users have to accept - which is a deliberate
 constraint meant to keep communities smaller and make connections feel like
-something. What seems like a small design-choice has broad implications in the
-code: almost every query in the system assumes symmetric relationships. Friend
-lists, mutual checks, privacy logic - all of it changes once friendship stops
-having a direction.
+something.
 
-Shelves came out of a simpler question: how do you make a profile expressive
-without just handing the user a textbox? Text bios alone are generic and boring.
+Shelves came out of a simple question: how can you make a profile more expressive
+than just handing the user a textbox? Text bios alone are generic and boring.
 What someone is currently reading, watching, or listening to says a great deal
-more. That became a feature - a search component querying three external APIs,
+more. This became the - a search component querying three external APIs,
 OMDb for films, OpenLibrary for books, MusicBrainz for albums, with live
 suggestions and a display component that renders covers on physical shelves
 on a user's profile.
@@ -104,8 +101,8 @@ that it has rough edges. Complex joins come back as flat rows full of
 nullable fields you then have to dispatch by hand in TypeScript. For simple
 queries it's clean; for anything with several joined tables, the result
 ends up more verbose and harder to follow than the SQL it's standing in
-for. Given the constraints, it was the right call. I'd look harder at the
-alternatives next time.
+for. Given the constraints, it was the right call. But honestly, I'd look
+harder at the alternatives next time.
 
 ## Deployment to the Edge
 
@@ -127,10 +124,9 @@ The database is Turso, a managed SQLite service built on libSQL, a fork of
 SQLite with replication support. The model mirrors the Workers philosophy:
 replicas are distributed across regions, so queries run close to wherever
 they're initiated. SQLite changes the mental model relative to Postgres too -
-there's no connection pool to manage, no pgBouncer, no connection limits
-to tune, and for a small social platform that simplicity turns out to be a
-genuine feature rather than a compromise. Drizzle sits on top of it,
-providing the typed schema and query builder.
+there's no connection pool to manage, no pgBouncer, no connection limits to
+tune, and for a small social platform that simplicity is a genuine feature.
+Drizzle sits on top of it, providing the typed schema and query builder.
 
 Files go to Cloudflare R2, object storage without egress fees. In
 production, avatars and post media are served straight from a public R2
