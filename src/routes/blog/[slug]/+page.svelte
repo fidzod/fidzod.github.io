@@ -54,8 +54,6 @@ let { data }: { data: PageData } = $props();
     flex-wrap: wrap;
     align-items: flex-end;
     gap: var(--space-xs);
-    font-size: var(--text-sm);
-    opacity: 0.6;
   }
   time {
     white-space: nowrap;

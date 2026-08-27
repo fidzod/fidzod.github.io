@@ -1,6 +1,6 @@
 - name: Lemuria
   url: https://github.com/fidzod/lemuria
-  description: A social platform built around two-sided friendships, shelves, and topic-based boards. Inspired by Letterboxd and early Facebook.
+  description: A social platform built around two-sided friendships, shelves, and topic-based boards. Built end-to-end in TypeScript as a monorepo with a shared types package. Deployed serverless via Cloudflare and Turso. The front-end is Svelte 5 and SvelteKit, and the backend is Hono, Drizzle, and SQLite.
   tech: [Bun, TypeScript, Hono, Drizzle, Svelte 5, SvelteKit]
 
 - name: Camel.py
@@ -8,7 +8,12 @@
   description: A reactive SPA framework for Python. Camel compiles a Python UI description to a typed intermediate representation, then interprets it with a small vanilla JS runtime.
   tech: [Python, JavaScript]
 
+- name: Gitfs
+  url: https://github.com/fidzod/git-from-scratch
+  description: A version control system implemented from scratch in Odin to explore how Git works under the hood. Gitfs recreates Git's core architecture from first principles, starting with a content-addressed object database and gradually building up higher-level repository operations.
+  tech: [Odin, Low-Level, Systems, Version Control, Tooling]
+
 - name: Kaworu Linux
   url: https://github.com/fidzod/kaworu-linux
-  description: A minimal NixOS rice built around Hyprland, Home Manager and Stylix. Declarative, reproducible, and opinionated — the entire system is defined in a single flake.
+  description: A minimal NixOS rice built around Hyprland, Home Manager and Stylix. Declarative, reproducible, and opinionated. See the README for detailed installation and usage instructions.
   tech: [NixOS, Nix, Hyprland]

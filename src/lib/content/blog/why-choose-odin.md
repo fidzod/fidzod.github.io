@@ -1,111 +1,135 @@
 ---
-title: "Why I Choose Odin over Rust or C"
+title: "What I Want from a Systems Programming Language and Why I Like Odin"
 date: 2026-06-09
 description: "I needed a systems language, so I tried Rust, Zig, C, Nim, and Odin. This is the case for Odin - and what Scheme taught me about what it means for a language to know what it is."
 tags: ["odin", "systems programming", "programming languages", "rust"]
 ---
 
-A year ago I was in need of a systems programming language having not used one
-for a while. I considered C, Rust, Zig, Nim, and Odin. Odin was the one I was
-least excited about.
+A year ago I found myself looking for a systems programming language again. The
+obvious candidates were C, Rust, Zig, Nim, and Odin. Odin was the one I expected
+to like least. It has no headline feature. There is no ownership system, no
+compile-time metaprogramming, no slogan that fits neatly into an elevator pitch.
+It has a small community and a modest ecosystem. It felt, at first glance,
+unremarkable.
 
-Odin arguably lacks a compelling elevator pitch. What's exciting about it? It
-doesn't have the magic of Nim, it's not memory safe in the way Rust is, it
-doesn't have Zig's comptime metaprogramming, and it's not as old or universal as
-C. It has a small community and a modest profile. I came to it last, almost
-reluctantly, and yet, it's the one I stuck with.
+It turned out to be exactly what I was looking for.
 
-I want to put forward why.
+This isn't really an article about Odin. It's about what I value in systems
+languages, and why I think simplicity is often misunderstood.
 
-There is a genuine need for something beyond C - I don't think this is a
-controversial claim. C's type system is thin enough that whole categories of bugs
-pass through it silently, its tooling is a mess of decades-old conventions, and
-writing it in 2026 means carrying the weight of decisions made in 1972. The
-question is not really whether we need something else, but rather what could
-replace it.
+## Simplicity is not the absence of features
 
-The consensus answer is Rust, and this is understandable because Rust solves real
-problems. Its ownership model eliminates a class of memory bugs at compile time,
-its type system is sophisticated, and it has accumulated a serious ecosystem. If
-you are writing software where memory safety is a hard requirement and you are
-willing to pay the cognitive overhead, Rust does make a genuine case for itself.
+When people praise simplicity they often mean minimalism: fewer keywords,
+shorter manuals, less syntax.
 
-But I find Rust philosophically confused, and practically unpleasant to write.
+That's not what I mean.
 
-The confusion is this: Rust has one foot out the door of systems programming,
-always reaching toward abstraction, never quite deciding what it is for. The
-result is a Frankenstein's monster of a language - features accumulated because
-each seemed like a good idea, none of them forming a coherent whole. The macro
-system, the trait system, the async ecosystem, the three smart pointer types
-you must choose between before you have written anything useful. No individual
-feature is indefensible. But Rust has no theory of enough, and the cumulative
-weight of it shows. For any given thing you need to do, there are several ways
-to do it, and for me that is a bug not a feature - it signals inelegance, not
-purely flexibility. The accidental complexity is very high, the essential
-complexity is the same as it would have been in C.
+Scheme is one of my favourite programming languages. Not because I write
+production software in Scheme—I don't—but because its design is extraordinarily
+coherent. It asks a simple question: *what is the smallest set of ideas capable
+of expressing everything else?* Almost every feature feels earned. Nothing seems
+to exist because it was fashionable, or because another language had it.
 
-This is before we get to Cargo, to the procedural macro ecosystem, to the
-culture of pulling in dependencies for things you could write in an afternoon.
-I am not opposed to package managers on principle. I am opposed to the particular
-learned helplessness they seem to produce, the sense that the correct response
-to needing something is to find a crate rather than to understand the problem.
-Rust has this in abundance.
+That idea has influenced how I think about systems languages.
 
-That is without mentioning the security problems
-this attitude generates - I'm sure you're already thinking about [what's been going on
-with NPM
-recently](https://arstechnica.com/security/2026/06/dozens-of-red-hat-packages-backdoored-through-its-offical-npm-channel/).
+The question isn't:
 
-Zig is more interesting, and I do have more sympathy for it. It takes the right
-lesson from C - that simplicity is a virtue. Comptime is genuinely clever.
-The explicit allocator model is the right idea. But Zig overemphasises testing to
-the point where it imposes structure on you, and its error handling, while
-principled, produces a kind of noise I find exhausting.
+> *How many features does this language have?*
 
-I am a fan of Scheme. Not as a production language - I don't build things in Scheme -
-but as a design object. Scheme is what you get when you ask: what is the minimum you
-actually need to express anything? It is small enough to hold in your head, powerful
-enough to build whatever you want on top of it, and it does not apologise for what it
-is not. There is no Scheme feature that could be removed. I cannot say that about many
-languages.
+It's:
 
-This is the question that I want to ask of systems languages, not what do they
-have: does it know what it is?
+> *Does every feature justify the cognitive cost of learning it?*
 
-**Odin knows what it is.**
+Every abstraction has a price. It asks you to learn another concept, another
+mental model, another piece of vocabulary. That's a worthwhile trade if the
+abstraction removes more complexity than it introduces. It isn't worthwhile
+simply because it exists.
 
-It is, roughly, what C would look like if it were designed today by someone who
-valued simplicity as a virtue rather than a constraint. It has a type system that
-is genuinely better than C's without being academic about it - tagged unions,
-explicit pointer semantics, no implicit conversions doing quiet damage - and it
-has these things because they are useful, not because they complete some
-theoretical picture. When I built a game engine with raylib, the bugs my IDE
-caught were the kind C would have let through silently: wrong union variant,
-mismatched types, null where something was expected. Odin doesn't have the most
-sophisticated type system, it has *enough* of a type system.
+Good language design is, in part, the discipline of knowing when to stop.
 
-In C, using raylib means finding it, building it, linking it, managing headers.
-In Odin, it is in the vendor library collection. You import it and it works.
-The build system philosophy - `odin build .`, `odin run .`, and
-not much else - is the language's personality made practical. There is no Cargo.
-There is no cmake. Just a directory and a command.
+## Explicitness matters
 
-(Also: the data-driven paradigm which Odin forces on you will make you never
-want to go back to OOP.)
+I don't dislike abstraction.
 
-This matters because friction is not neutral. Every unnecessary step between you and
-building something is a small argument that the tooling is more important than the work.
-Odin's tooling makes the opposite argument. It is quiet about itself.
+I dislike abstraction whose justification is invisible.
 
-There are cases where I wouldn't reach for Odin. I'm not suggesting we rewrite the
-Linux kernel in it. C still has its place.
+The systems I enjoy most are the ones that make their constraints obvious.
+SQLite tells you exactly what it is. Cloudflare Workers tell you exactly what
+they can and can't do. Git's object model is surprisingly small once you strip
+away the porcelain. You can understand each of them end-to-end if you're willing
+to spend the time.
 
+Programming languages should feel the same.
 
-But for systems work where I am the one setting the terms - a game engine,
-a language interpreter, anything I am building because I want to understand it -
-Odin is where I start. It does not get in the way. It does not have opinions about
-my project structure, does not require a manifest file to build a single executable,
-does not ask me to learn its internal architecture before I can be productive.
+When I encounter behaviour I don't understand, I don't want to memorise another
+rule. I want to understand why the rule exists in the first place.
 
-It is a quiet, simple language, that gets out of your way, so you can focus on
-what you're building.
+That's ultimately why I found myself enjoying Odin.
+
+## Why Odin appealed to me
+
+Odin feels like someone sat down and asked what C would look like if it were
+designed today without trying to become something else.
+
+The improvements over C are practical rather than ideological. The type system
+catches mistakes C would happily accept. Tagged unions, better pointer
+semantics, stronger typing, a modern standard library and tooling—they all
+reduce accidental complexity without introducing a radically different
+programming model.
+
+When I built a small game engine using raylib, many of the bugs I encountered
+simply became type errors. Wrong union variants, mismatched types, incorrect
+assumptions about nullability. They were exactly the kinds of mistakes I wanted
+the compiler to find.
+
+The language gave me more confidence without demanding a fundamentally different
+way of thinking.
+
+Just as importantly, the tooling stays out of the way.
+
+Building a project rarely feels like learning a build system. The language has
+opinions, but they're remarkably modest ones. Most of the time I can focus on
+the program I'm writing rather than the infrastructure surrounding it.
+
+That quietness is surprisingly valuable.
+
+## Different priorities
+
+None of this is an argument that Odin is objectively better than Rust, Zig, or
+C.
+
+Rust solves a different problem.
+
+If memory safety is your overriding concern, Rust makes an extraordinarily
+compelling case. Its ownership model eliminates entire classes of bugs that
+languages like C and Odin leave to the programmer. That's an enormous
+achievement.
+
+The trade-off is complexity.
+
+Rust asks programmers to internalise a much richer collection of concepts:
+ownership, borrowing, lifetimes, traits, procedural macros, multiple smart
+pointer types, an extensive asynchronous ecosystem, and more. Each of these
+exists for good reasons. My reservation isn't about any individual feature.
+
+It's about the cumulative cognitive cost.
+
+Personally, I find myself drawn toward languages that solve fewer problems while
+remaining easier to understand completely. That isn't because those problems
+don't matter. It's because understanding the whole system is one of the things I
+value most in software.
+
+Someone with different priorities could reasonably make the opposite choice.
+
+## Knowing what you are
+
+The best tools I've used share one characteristic: they know what they are.
+
+SQLite isn't trying to become PostgreSQL. Git isn't trying to become an IDE.
+Scheme isn't trying to become Java.
+
+Odin doesn't feel like it's trying to become every systems language at once, and
+that sense of restraint is rare. I think that's why I keep coming back to it.
+It's not the most ambitious language I've used - it's simply the one that gets
+out of my way most consistently, leaving me free to think about the software I'm
+actually trying to build.

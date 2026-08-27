@@ -16,61 +16,24 @@
   --space-flow-subtitle: 0.15em;
   --space-flow-after-subtitle: 1.5em;
   --space-flow-after-section-subtitle: var(--space-sm);
-  --text-sm: 0.8rem;
+  --text-sm: 0.9rem;
   --text-h1: 1.5em;
   --text-h2: 1.25em;
   --border-radius: 4px;
 }
 
-:root,
-[data-theme="chicago-day"] {
-  --bg: #e8f0ea;
-  --bg-card: #d1e0d7;
-  --border-subtle: #b9d0c3;
-  --text-muted: #8a9a91;
-  --text-primary: #364c40;
-  --text-link: #522398;
-}
-
-[data-theme="black-metal-burzum"] {
-  --bg: #000000;
-  --bg-card: #121212;
-  --border-subtle: #222222;
-  --text-muted: #333333;
-  --text-primary: #c1c1c1;
-  --text-link: #888888;
-}
-
-[data-theme="apathy"] {
-  --bg: #031a16;
-  --bg-card: #0b342d;
-  --border-subtle: #184e45;
-  --text-muted: #2b685e;
-  --text-primary: #81b5ac;
-  --text-link: #96883e;
-}
-
-[data-theme="catppuccin-macchiato"] {
-  --bg: #24273a;
-  --bg-card: #1e2030;
-  --border-subtle: #363a4f;
-  --text-muted: #494d64;
-  --text-primary: #cad3f5;
-  --text-link: #8aadf4;
-}
-
-[data-theme="catppuccin-latte"] {
-  --bg: #eff1f5;
-  --bg-card: #e6e9ef;
-  --border-subtle: #ccd0da;
-  --text-muted: #bcc0cc;
-  --text-primary: #4c4f69;
-  --text-link: #1e66f5;
+:root {
+  --bg: #ffffff;
+  --bg-card: #f6f8fa;
+  --border-subtle: #d1d9e0;
+  --text-muted: #59636e;
+  --text-primary: #1f2328;
+  --text-link: #0969da;
 }
 
 body {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 14px;
+  font-family: "Crimson Pro Variable", serif;
+  font-size: 16px;
   background-color: var(--bg);
   color: var(--text-primary);
 }
@@ -97,14 +60,6 @@ pre {
   border: 1px solid var(--border-subtle);
   overflow-x: auto;
   font-size: inherit;
-  background-color: var(--bg-card);
-}
-
-.card {
-  background-color: var(--bg-card);
-  border-left: 1px dashed var(--text-primary);
-  padding-block: var(--space-xs);
-  padding-inline: var(--space-md);
 }
 
 .links svg {
@@ -148,14 +103,12 @@ pre {
   word-break: break-word;
 }
 
-/* Prevents .prose * + * from adding flow margin inside flex meta rows */
-.meta > * {
-  margin-block-start: 0;
+.meta {
+  font-family: "JetBrains Mono Variable";
+  font-size: 0.7rem;
+  opacity: 0.6;
 }
 
-/* Syntax highlighting - per-theme Shiki CSS variables */
-[data-theme="chicago-day"] .shiki span { color: var(--shiki-chicago-day); }
-[data-theme="black-metal-burzum"] .shiki span { color: var(--shiki-black-metal-burzum); }
-[data-theme="apathy"] .shiki span { color: var(--shiki-apathy); }
-[data-theme="catppuccin-macchiato"] .shiki span { color: var(--shiki-catppuccin-macchiato); }
-[data-theme="catppuccin-latte"] .shiki span { color: var(--shiki-catppuccin-latte); }
+code, pre {
+  font-size: 0.8rem;
+}

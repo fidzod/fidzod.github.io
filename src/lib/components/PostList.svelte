@@ -20,7 +20,11 @@
   }
 </script>
 
+{#if seeAll}
 <h2>{title}</h2>
+{:else}
+<h1>{title}</h1>
+{/if}
 <p><em>Writings on technology, philosophy, and their intersection</em></p>
 
 <ul class="post-list">
@@ -65,13 +69,8 @@
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-xs);
-    font-size: var(--text-sm);
-    opacity: 0.6;
   }
   .meta time {
     white-space: nowrap;
-  }
-  article p {
-    font-size: var(--text-sm);
   }
 </style>

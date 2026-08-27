@@ -1,10 +1,9 @@
 import adapter from '@sveltejs/adapter-static';
 import { mdsvex } from 'mdsvex';
 import { createHighlighter } from 'shiki';
-import { chicagoDayTheme, burzumTheme, apathyTheme } from './src/lib/shiki-themes.js';
 
 const highlighter = await createHighlighter({
-  themes: [chicagoDayTheme, burzumTheme, apathyTheme, 'catppuccin-macchiato', 'catppuccin-latte'],
+  themes: ['github-light'],
   langs: ['odin', 'typescript']
 });
 
@@ -19,14 +18,7 @@ const config = {
           return highlighter
             .codeToHtml(code, {
               lang: lang ?? 'text',
-              themes: {
-                'chicago-day': 'chicago-day',
-                'black-metal-burzum': 'black-metal-burzum',
-                'apathy': 'apathy',
-                'catppuccin-macchiato': 'catppuccin-macchiato',
-                'catppuccin-latte': 'catppuccin-latte',
-              },
-              defaultColor: false,
+              theme: 'github-light'
             })
             .replace(/\{/g, '&#123;')
             .replace(/\}/g, '&#125;');

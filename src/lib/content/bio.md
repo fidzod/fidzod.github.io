@@ -1,28 +1,36 @@
 # Toby Jordan
 *Self-Taught Programmer and Philosophy & RS Graduate*
 
-I am a self-taught programmer and will graduate this year with a First Class
-degree in Philosophy and Religious Studies from the University of Manchester,
-UK. I have always been passionate about computers, and started programming at 10
-years-old.
+I started programming in Python when I was 10, at first making drawings with
+Turtle and then simple games with Pygame, and I've been passionate about computers
+ever since. I'm particularly interested in how things work under the hood,
+beneath abstraction layers, and this meant I spent a lot of time as a teenage
+reading ISA manuals and implementing virtual machines in **Python** and **C**.
 
-I am proficient in **Typescript**, **Python**, and **Odin**. I have built
-full-stack type-safe web applications in Typescript using a modern tech stack
-including **SvelteKit** and **Svelte 5**, as well as low-level applications in Odin.
-See below for examples of my work.
+I graduated this year from Manchester with a First in Philosophy and Religious
+Studies. My philosophy background shapes how I think about software: I am drawn
+to complex and foundational problems including language design and type systems,
+and I am unwilling to accept black boxes.
 
-At the moment, I am exploring **Lambda Calculus** and **Type Theory** in a series of
-blog posts. The
-[first post](/blog/lambda-calculus-interpreter-in-odin)
-walks through my implementation of a lambda calculus
-interpreter in Odin. The
-[second post](/blog/typed-lambda-calculus-curry-howard)
-implements **STLC** and **PCF**, and discusses
-the **Curry-Howard correspondence**. In the third and final post, coming soon,
-I discuss the **Lambda Cube** and implement the **Hindley-Milner** type system.
+Over the past several years I have taught myself full-stack development in
+**TypeScript**, with a modern stack including **Svelte 5** and **SvelteKit**,
+**Hono**, **Drizzle**, and **SQLite**. I recently completed a serverless
+deployment of [Lemuria](/blog/lemuria-edgeless-full-stack), a full-stack social
+application I designed and built solo, using **Cloudflare** Workers, Pages, and
+R2, along with **Turso** for distributed SQLite.
 
-My philosophy background shapes how I think about software: I am drawn to
-complex and foundational problems: type systems, language design, etc.
+Alongside my full stack work I have been diving into **Type Theory** and **Type
+Systems**; recently I implemented
+[interpreters](https://github.com/fidzod/lambda-calculus) for the untyped lambda
+calculus, simply typed lambda calculus (STLC), and programming computable
+functions (PCF) from first principles in **Odin**. I documented these
+implementations and the theory involved in a series of [blog
+posts](/blog/lambda-calculus-interpreter-in-odin).
 
-**I am currently seeking a junior/intern software engineering role. Based in
-the UK; open to remote.**
+At the moment I am learning **Rust** by implementing [a virtual
+machine](https://github.com/fidzod/GoblinVM) for a custom ISA I designed based
+on RISC V and early ARM.
+
+**I am currently seeking a junior/graduate role in backend, systems, full stack,
+or AI. I am based in the UK (Manchester), but open to remote. Take a look at my
+projects below, and be sure to check out my [blog](/blog).**

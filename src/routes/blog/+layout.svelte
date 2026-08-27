@@ -6,17 +6,12 @@ let { children }: { children: Snippet } = $props();
 </script>
 
 <main>
-  <Navbar />
-
   {@render children()}
 </main>
 
 <style>
   main {
-    width: calc(100vw - 2rem);
-    max-width: 620px;
-    min-height: 75vh;
-    margin: var(--space-lg) auto;
+    width: 100%;
   }
   :global(article img) {
     width: 100%;

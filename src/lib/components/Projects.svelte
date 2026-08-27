@@ -19,7 +19,7 @@
     <li class="card">
       <a href={project.url}>{project.name}</a>
       <p>{project.description}</p>
-      <p class="tech">{project.tech.join(" · ")}</p>
+      <p class="tech meta">{project.tech.join(" · ")}</p>
     </li>
   {/each}
 </ul>
@@ -40,9 +40,7 @@
   }
   a {
     font-weight: bold;
-  }
-  p {
-    font-size: var(--text-sm);
+    width: fit-content;
   }
   .tech {
     opacity: 0.55;
