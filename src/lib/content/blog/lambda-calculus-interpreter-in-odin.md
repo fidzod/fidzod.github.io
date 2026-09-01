@@ -308,7 +308,7 @@ abstraction case. When substituting `x` with `N` in `λy. M` there are three
 possibilities:
 
 If `y` is `x`, the lambda rebinds the same variable that we are substituting.
-Every occurence of `x` inside `M` refers to the lambda's parameter, not the `x`
+Every occurrence of `x` inside `M` refers to the lambda's parameter, not the `x`
 that we're replacing. So we just stop here and return the abstraction unchanged.
 
 If `y` is not `x` but `y` appears free in `N` then there is a risk of variable
@@ -331,7 +331,7 @@ alpha_convert :: proc(base: string) -> string {
 
 A cleaner solution replaces named variables entirely with numeric indices
 indicating how many lambdas deep the binding is - so `λx. x` becomes
-`λ. 0` and `λx. λy. x` becomes ``λ. λ. 1.` These are called de Bruijn indices,
+`λ. 0` and `λx. λy. x` becomes `λ. λ. 1`. These are called de Bruijn indices,
 and they make alpha-equivalence trivial: two terms are alpha-equivalent iff.
 they are identical. For the sake of simplicity, I have left them out of this
 implementation.
@@ -695,11 +695,11 @@ sentinel value. We use a pair that identifies itself to represent that sentinel.
 
 ```text
 let nil      = pair tru tru
-let mil?   = \l. fst l
+let nil?   = \l. fst l
 ```
 
 `nil` is a pair whose first element is `tru`. The second element could be
-anything, because `mil?` just checks that first element -
+anything, because `nil?` just checks that first element -
 tru means we've reached the end, fls means there's more list. A non-empty list
 node is a pair whose first element is fls, distinguishing it from nil:
 
@@ -746,7 +746,7 @@ let Y = \f. (\x. f (x x)) (\x. f (x x))
 ```
 
 The key property is that `Y f = f (Y f)`, that is, applying `Y` to a function
-`f` gives back `f` applied to `Y f` - `f` recieves itself, already applied, as
+`f` gives back `f` applied to `Y f` - `f` receives itself, already applied, as
 an argument. Self-reference emerges from self-application.
 
 To write a recursive function we write a function that takes its own future self
@@ -766,7 +766,7 @@ With recursion in hand, higher order functions over lists follow naturally.
 function to each element:
 
 ```text
-let fold = Y (\go. \l. \a. \f. if (mil? l) a (go (tail l) (f a (head l)) (f)))
+let fold = Y (\go. \l. \a. \f. if (nil? l) a (go (tail l) (f a (head l)) (f)))
 ```
 
 If the list is `nil` return the accumulator. Otherwise apply `f` to the
@@ -832,7 +832,7 @@ out this limits what we can compute, but we also discover an interesting
 property: types turn out to be more than a safety check. Every well-typed term
 in the simply typed lambda calculus corresponds to a proof in propositional
 logic! A function type 'A -> B' is an implication. A term inhabiting that type
-is a proof that the implication holds. Type checking *is* proof verificiation.
+is a proof that the implication holds. Type checking *is* proof verification.
 This correspondence - propositions as types, proofs as programs - is called the
 [Curry-Howard
 correspondence](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence).

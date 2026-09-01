@@ -1,3 +1,8 @@
+- name: BlissVM
+  url: https://github.com/fidzod/BlissVM
+  description: A complete virtual machine system built from scratch in Rust for a 32-bit RISC-inspired instruction set of my own design. Includes an assembler, memory-mapped IO, privilege levels and trap handling, a bare-metal operating system, a filesystem, and an interactive shell.
+  tech: [Rust, Systems, Emulation, Operating Systems, ISA Design]
+
 - name: Lemuria
   url: https://github.com/fidzod/lemuria
   description: A social platform built around two-sided friendships, shelves, and topic-based boards. Built end-to-end in TypeScript as a monorepo with a shared types package. Deployed serverless via Cloudflare and Turso. The front-end is Svelte 5 and SvelteKit, and the backend is Hono, Drizzle, and SQLite.

@@ -29,7 +29,7 @@ something.
 Shelves came out of a simple question: how can you make a profile more expressive
 than just handing the user a textbox? Text bios alone are generic and boring.
 What someone is currently reading, watching, or listening to says a great deal
-more. This became the - a search component querying three external APIs,
+more. This became the Shelves feature - a search component querying three external APIs,
 OMDb for films, OpenLibrary for books, MusicBrainz for albums, with live
 suggestions and a display component that renders covers on physical shelves
 on a user's profile.

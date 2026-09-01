@@ -1,14 +1,14 @@
 # Toby Jordan
-*Self-Taught Programmer and Philosophy & RS Graduate*
+*Self-Taught Programmer and Philosophy & Religion Graduate*
 
 I started programming in Python when I was 10, at first making drawings with
 Turtle and then simple games with Pygame, and I've been passionate about computers
 ever since. I'm particularly interested in how things work under the hood,
-beneath abstraction layers, and this meant I spent a lot of time as a teenage
+beneath abstraction layers, and this meant I spent a lot of time as a teenager
 reading ISA manuals and implementing virtual machines in **Python** and **C**.
 
-I graduated this year from Manchester with a First in Philosophy and Religious
-Studies. My philosophy background shapes how I think about software: I am drawn
+I graduated this year from Manchester with a First in Philosophy and Religion.
+My philosophy background shapes how I think about software: I am drawn
 to complex and foundational problems including language design and type systems,
 and I am unwilling to accept black boxes.
 
@@ -27,9 +27,10 @@ functions (PCF) from first principles in **Odin**. I documented these
 implementations and the theory involved in a series of [blog
 posts](/blog/lambda-calculus-interpreter-in-odin).
 
-At the moment I am learning **Rust** by implementing [a virtual
-machine](https://github.com/fidzod/GoblinVM) for a custom ISA I designed based
-on RISC V and early ARM.
+At the moment I am building [BlissVM](https://github.com/fidzod/BlissVM) in
+**Rust** — a complete VM system for a 32-bit RISC-inspired ISA of my own design,
+written from scratch: assembler, memory-mapped IO, privilege levels and traps, a
+bare-metal OS, a filesystem, and a shell.
 
 **I am currently seeking a junior/graduate role in backend, systems, full stack,
 or AI. I am based in the UK (Manchester), but open to remote. Take a look at my
