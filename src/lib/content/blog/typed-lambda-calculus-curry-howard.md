@@ -67,7 +67,7 @@ whole abstraction has type `A->B`.
   `t₂` gives something of type `B`.
 
 Note that the first two of these can't go wrong on their own, they essentially
-just propogate information. Application is where types can conflict.
+just propagate information. Application is where types can conflict.
 
 These rules also show that in STLC, lambdas must declare the type of their
 parameters, and we use type annotations for this. There is no type inference.
@@ -177,7 +177,7 @@ on the body, and wraps the result in an arrow. App recurses on both sides,
 checks that the function's type is an arrow, checks that the type of the argument
 matches the type of the domain, and returns that type.
 
-Youl'll notice that typechecking is entirely straightforward in STLC: no
+You'll notice that typechecking is entirely straightforward in STLC: no
 unification, no inference, no backtracking. The annotations give you everything
 you need.
 
@@ -694,7 +694,7 @@ them that way.
 
 `fix` comes in and breaks that correspondence. A term of any type can be
 constructed from the identity function and fix, which means every proposition
-becomes proveable, and hence all of them cease to mean anything. We trade
+becomes provable, and hence all of them cease to mean anything. We trade
 consistent logic for Turing completeness and get PCF.
 
 The natural next question is *what if we didn't have to choose?* What if we
