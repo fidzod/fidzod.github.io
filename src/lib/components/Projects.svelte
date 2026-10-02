@@ -1,14 +1,14 @@
 <script lang="ts">
-  import projectData from "$lib/content/projects.yaml";
+import projectData from '$lib/content/projects.yaml';
 
-  interface Project {
-    name: string;
-    url: string;
-    description: string;
-    tech: string[];
-  }
+interface Project {
+  name: string;
+  url: string;
+  description: string;
+  tech: string[];
+}
 
-  const projects = projectData as Project[];
+const projects = projectData as Project[];
 </script>
 
 <h2>Projects</h2>

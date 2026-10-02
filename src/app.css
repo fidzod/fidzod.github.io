@@ -109,6 +109,7 @@ pre {
   opacity: 0.6;
 }
 
-code, pre {
+code,
+pre {
   font-size: 0.8rem;
 }

@@ -3,7 +3,7 @@ import Avatar from '$lib/assets/avatar.png';
 import {
   Send as Mail,
   FileText as Blog,
-  House as Home,
+  House as Home
 } from '@lucide/svelte/icons';
 import { page } from '$app/state';
 </script>

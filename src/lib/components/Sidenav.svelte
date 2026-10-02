@@ -1,30 +1,30 @@
 <script lang="ts">
-  import Avatar from "$lib/assets/avatar.png";
-  import {
-    Send as Mail,
-    FileText as Blog,
-    MapPin,
-    Clock,
-    House as Home,
-  } from "@lucide/svelte/icons";
-  import { getLocalTimeString } from "$lib/time";
-  import type { Post } from "$lib/blog";
+import Avatar from '$lib/assets/avatar.png';
+import {
+  Send as Mail,
+  FileText as Blog,
+  MapPin,
+  Clock,
+  House as Home
+} from '@lucide/svelte/icons';
+import { getLocalTimeString } from '$lib/time';
+import type { Post } from '$lib/blog';
 
-  let {
-    posts,
-  }: {
-    posts: Post[];
-  } = $props();
+let {
+  posts
+}: {
+  posts: Post[];
+} = $props();
 
-  let time = $state(getLocalTimeString());
+let time = $state(getLocalTimeString());
 
-  $effect(() => {
-    const interval = setInterval(() => {
-      time = getLocalTimeString();
-    }, 1000 * 10);
+$effect(() => {
+  const interval = setInterval(() => {
+    time = getLocalTimeString();
+  }, 1000 * 10);
 
-    return () => clearInterval(interval);
-  });
+  return () => clearInterval(interval);
+});
 </script>
 
 <nav>

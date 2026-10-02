@@ -1,23 +1,23 @@
 <script lang="ts">
-  import type { Post } from "$lib/blog";
+import type { Post } from '$lib/blog';
 
-  let {
-    posts,
-    title = "Blog",
-    seeAll = true,
-  }: {
-    posts: Post[];
-    title?: string;
-    seeAll?: boolean;
-  } = $props();
+let {
+  posts,
+  title = 'Blog',
+  seeAll = true
+}: {
+  posts: Post[];
+  title?: string;
+  seeAll?: boolean;
+} = $props();
 
-  function formatDate(date: string) {
-    return new Date(date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  }
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+}
 </script>
 
 {#if seeAll}
