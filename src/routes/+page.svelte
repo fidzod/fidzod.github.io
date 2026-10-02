@@ -3,6 +3,7 @@ import Bio from '$lib/content/bio.md';
 import Projects from '$lib/components/Projects.svelte';
 import PostList from '$lib/components/PostList.svelte';
 import type { PageData } from './$types';
+    import Bookshelf from '$lib/components/Bookshelf.svelte';
 
 let { data }: { data: PageData } = $props();
 </script>
@@ -31,6 +32,10 @@ let { data }: { data: PageData } = $props();
 
 <section class="prose">
   <PostList posts={data.posts} />
+</section>
+
+<section class="prose">
+  <Bookshelf />
 </section>
 
 <style>

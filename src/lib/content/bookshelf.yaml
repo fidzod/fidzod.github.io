@@ -1,0 +1,16 @@
+- name: The Implementation of Functional Programming Languages
+  author: Simon L. Peyton Jones
+  year: 1987
+  cover: /images/jones_1987.jpg
+- name: Structure and Interpretation of Computer Programs
+  author: Harold Abelson, Gerald Jay Sussman, Julie Sussman
+  year: 1984
+  cover: /images/abelson_1984.jpg
+- name: Neuromancer
+  author: William Gibson
+  year: 1984
+  cover: /images/gibson_1984.jpg
+- name: Writings 1997-2003
+  author: Cybernetic Culture Research Unit (CCRU)
+  year: 2015
+  cover: /images/ccru_2015.jpg
